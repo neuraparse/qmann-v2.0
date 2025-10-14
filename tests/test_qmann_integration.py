@@ -52,10 +52,11 @@ class TestQMANNIntegration:
         batch_size = 16
         seq_len = 20
         input_size = 10
+        hidden_size = 32  # Match QuantumLSTM hidden_size
 
         # Generate synthetic time series data
         X = torch.randn(batch_size, seq_len, input_size)
-        y = torch.randn(batch_size, seq_len, input_size)  # For sequence-to-sequence
+        y = torch.randn(batch_size, seq_len, hidden_size)  # Match model output size
 
         dataset = TensorDataset(X, y)
         dataloader = DataLoader(dataset, batch_size=8, shuffle=True)
@@ -119,7 +120,7 @@ class TestQMANNIntegration:
     def test_quantum_memory_operations(self, config):
         """Test quantum memory read/write operations."""
         quantum_memory = QuantumMemory(
-            config=config, num_banks=2, bank_size=8, qubit_count=8
+            config=config, num_banks=2, bank_size=8, qubit_count=6
         )
 
         quantum_memory.initialize()
