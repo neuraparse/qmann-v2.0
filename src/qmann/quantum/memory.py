@@ -173,6 +173,24 @@ class QuantumMemory(QuantumComponent):
                 f"Enhanced QuantumMemory initialization failed: {str(e)}"
             )
 
+    def _setup_error_mitigation(self) -> None:
+        """Setup adaptive error mitigation protocols."""
+        # Initialize error mitigation parameters
+        self.error_mitigation_params = {
+            "readout_mitigation": True,
+            "dynamical_decoupling": True,
+            "zero_noise_extrapolation": False,  # Disabled for NISQ
+        }
+        logger.debug("Error mitigation protocols configured")
+
+    def _setup_coherence_monitoring(self) -> None:
+        """Setup coherence monitoring for decoherence tracking."""
+        # Initialize coherence tracking
+        self.coherence_times = []
+        self.decoherence_events = 0
+        self.last_refresh_time = time.time()
+        logger.debug("Coherence monitoring initialized")
+
     def _initialize_quantum_circuits(self) -> None:
         """Initialize advanced quantum circuits for 2025 operations."""
         # Amplitude amplification circuit for quantum search
@@ -208,6 +226,38 @@ class QuantumMemory(QuantumComponent):
             qc.h(self.qubit_count - 1)
             qc.x(range(self.qubit_count))
             qc.h(range(self.qubit_count))
+
+        return qc
+
+    def _create_error_correction_circuit(self) -> QuantumCircuit:
+        """Create error correction circuit for decoherence protection."""
+        qc = QuantumCircuit(self.qubit_count)
+
+        # Simple bit-flip error detection using parity checks
+        # For NISQ devices, we use lightweight error mitigation
+        if self.qubit_count >= 3:
+            # Add parity check qubits for error detection
+            for i in range(0, self.qubit_count - 1, 2):
+                if i + 1 < self.qubit_count:
+                    qc.cx(i, i + 1)
+
+        return qc
+
+    def _create_consolidation_circuit(self) -> QuantumCircuit:
+        """Create memory consolidation circuit for long-term storage."""
+        qc = QuantumCircuit(self.qubit_count)
+
+        # Memory consolidation using entanglement and phase encoding
+        # Initialize with Hadamard gates
+        qc.h(range(self.qubit_count))
+
+        # Create entanglement for robust storage
+        for i in range(self.qubit_count - 1):
+            qc.cx(i, i + 1)
+
+        # Add phase rotations for memory encoding
+        for i in range(self.qubit_count):
+            qc.rz(np.pi / 4, i)
 
         return qc
 

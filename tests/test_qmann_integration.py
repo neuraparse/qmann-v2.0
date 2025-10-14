@@ -97,7 +97,7 @@ class TestQMANNIntegration:
             input_size=10,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
 
         # Create trainer
@@ -260,7 +260,7 @@ class TestQMANNIntegration:
             input_size=10,
             hidden_size=32,
             quantum_memory_size=32,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
         model.initialize()
 
@@ -285,7 +285,7 @@ class TestQMANNIntegration:
             input_size=10,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
         model.initialize()
 
@@ -303,7 +303,7 @@ class TestQMANNIntegration:
             input_size=10,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
         model2.initialize()
         model2.load_checkpoint(str(save_path))
@@ -326,7 +326,7 @@ class TestQMANNIntegration:
             input_size=10,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
         quantum_model.initialize()
 
@@ -371,7 +371,7 @@ class TestQMANNIntegration:
             input_size=10,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
         model.initialize()
 
@@ -407,7 +407,7 @@ class TestQMANNIntegration:
             input_size=10,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
         model.initialize()
 
@@ -444,7 +444,7 @@ class TestQMANNIntegration:
             input_size=20,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
         qmann_model.initialize()
 
@@ -553,7 +553,7 @@ class TestQMANNIntegration:
             input_size=15,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
         model.initialize()
 

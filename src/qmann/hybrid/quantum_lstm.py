@@ -211,10 +211,12 @@ class QuantumLSTM(HybridComponent, nn.Module):
                 self.logger.warning(
                     f"Quantum memory operation failed: {e}, using classical only"
                 )
-                combined_output = lstm_output
+                # Duplicate classical output to match expected dimensions
+                combined_output = torch.cat([lstm_output, lstm_output], dim=-1)
                 quantum_info["error"] = str(e)
         else:
-            combined_output = lstm_output
+            # Duplicate classical output to match expected dimensions
+            combined_output = torch.cat([lstm_output, lstm_output], dim=-1)
 
         # Final output projection
         output = self.output_projection(combined_output)
