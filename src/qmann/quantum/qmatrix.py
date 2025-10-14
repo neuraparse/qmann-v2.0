@@ -209,7 +209,8 @@ class QMatrix(QuantumMemoryInterface):
 
             # Create statevector and initialize
             try:
-                circuit.initialize(padded_data, self.memory_register)
+                # Use normalize=True to handle floating point errors
+                circuit.initialize(padded_data, self.memory_register, normalize=True)
                 # No need to apply variational encoding if direct initialization succeeds
                 return circuit
             except Exception as e:
