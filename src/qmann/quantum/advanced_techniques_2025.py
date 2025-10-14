@@ -46,7 +46,14 @@ import time
 from qiskit import QuantumCircuit, transpile
 from qiskit.circuit import Parameter, ParameterVector
 from qiskit.circuit.library import EfficientSU2, RealAmplitudes, TwoLocal, QFT
-from qiskit.quantum_info import Statevector, DensityMatrix, state_fidelity, entropy, partial_trace
+from qiskit.quantum_info import (
+    Statevector,
+    DensityMatrix,
+    state_fidelity,
+    entropy,
+    partial_trace,
+)
+
 # Qiskit 2.2+ primitives
 from qiskit.primitives import StatevectorEstimator, StatevectorSampler
 from qiskit_algorithms.amplitude_amplifiers import AmplitudeAmplifier, Grover
@@ -59,6 +66,7 @@ logger = logging.getLogger(__name__)
 
 class QuantumTechnique2025(Enum):
     """Enumeration of 2025 quantum computing techniques."""
+
     MULTI_HEAD_ATTENTION = "multi_head_quantum_attention"
     ADAPTIVE_ANSATZ = "adaptive_variational_ansatz"
     AMPLITUDE_AMPLIFICATION = "advanced_amplitude_amplification"
@@ -80,117 +88,128 @@ class QuantumTechnique2025(Enum):
 @dataclass
 class QuantumAdvantageMetrics:
     """Comprehensive metrics for quantum advantage assessment."""
+
     speedup_factor: float = 1.0
     energy_efficiency: float = 1.0
     memory_compression: float = 1.0
     error_resilience: float = 1.0
     coherence_utilization: float = 1.0
     fidelity_preservation: float = 1.0
-    
+
     def quantum_advantage_score(self) -> float:
         """Calculate overall quantum advantage score."""
-        return np.mean([
-            self.speedup_factor,
-            self.energy_efficiency,
-            self.memory_compression,
-            self.error_resilience,
-            self.coherence_utilization,
-            self.fidelity_preservation
-        ])
+        return np.mean(
+            [
+                self.speedup_factor,
+                self.energy_efficiency,
+                self.memory_compression,
+                self.error_resilience,
+                self.coherence_utilization,
+                self.fidelity_preservation,
+            ]
+        )
 
 
 class MultiHeadQuantumAttention:
     """
     Multi-head quantum attention mechanism for enhanced pattern recognition.
-    
+
     Based on 2025 research in quantum transformers and attention mechanisms,
     this implementation provides quantum advantage in processing complex
     relationships in high-dimensional data.
     """
-    
+
     def __init__(self, num_heads: int, num_qubits: int, depth: int = 3):
         self.num_heads = num_heads
         self.num_qubits = num_qubits
         self.depth = depth
-        
+
         # Initialize attention heads
         self.attention_heads = []
         for i in range(num_heads):
             head = self._create_attention_head(i)
             self.attention_heads.append(head)
-        
+
         # Quantum parameters for attention weights
-        self.attention_params = ParameterVector('attention', num_heads * num_qubits * depth)
-        
+        self.attention_params = ParameterVector(
+            "attention", num_heads * num_qubits * depth
+        )
+
         logger.info(f"Initialized MultiHeadQuantumAttention with {num_heads} heads")
-    
+
     def _create_attention_head(self, head_id: int) -> QuantumCircuit:
         """Create a single quantum attention head."""
         qc = QuantumCircuit(self.num_qubits, name=f"attention_head_{head_id}")
-        
+
         # Use EfficientSU2 ansatz optimized for NISQ devices
         ansatz = EfficientSU2(
-            self.num_qubits, 
+            self.num_qubits,
             reps=self.depth,
-            entanglement='circular',
-            insert_barriers=True
+            entanglement="circular",
+            insert_barriers=True,
         )
         qc.compose(ansatz, inplace=True)
-        
+
         return qc
-    
-    def apply_attention(self, query_state: Statevector, key_states: List[Statevector]) -> Statevector:
+
+    def apply_attention(
+        self, query_state: Statevector, key_states: List[Statevector]
+    ) -> Statevector:
         """Apply multi-head quantum attention to input states."""
         attention_outputs = []
-        
+
         for head_id, head_circuit in enumerate(self.attention_heads):
             # Compute attention weights using quantum fidelity
             attention_weights = []
             for key_state in key_states:
                 fidelity = state_fidelity(query_state, key_state)
                 attention_weights.append(fidelity)
-            
+
             # Normalize attention weights
             attention_weights = np.array(attention_weights)
             attention_weights = attention_weights / np.sum(attention_weights)
-            
+
             # Apply weighted combination of key states
-            attended_state = self._weighted_state_combination(key_states, attention_weights)
+            attended_state = self._weighted_state_combination(
+                key_states, attention_weights
+            )
             attention_outputs.append(attended_state)
-        
+
         # Combine outputs from all attention heads
         final_output = self._combine_attention_heads(attention_outputs)
         return final_output
-    
-    def _weighted_state_combination(self, states: List[Statevector], weights: np.ndarray) -> Statevector:
+
+    def _weighted_state_combination(
+        self, states: List[Statevector], weights: np.ndarray
+    ) -> Statevector:
         """Combine quantum states with given weights."""
         combined_amplitudes = np.zeros(2**self.num_qubits, dtype=complex)
-        
+
         for state, weight in zip(states, weights):
             combined_amplitudes += weight * state.data
-        
+
         # Normalize the combined state
         norm = np.linalg.norm(combined_amplitudes)
         if norm > 0:
             combined_amplitudes /= norm
-        
+
         return Statevector(combined_amplitudes)
-    
+
     def _combine_attention_heads(self, head_outputs: List[Statevector]) -> Statevector:
         """Combine outputs from multiple attention heads."""
         # Simple averaging for now - can be enhanced with learned combinations
         combined_amplitudes = np.zeros(2**self.num_qubits, dtype=complex)
-        
+
         for output in head_outputs:
             combined_amplitudes += output.data
-        
+
         combined_amplitudes /= len(head_outputs)
-        
+
         # Normalize
         norm = np.linalg.norm(combined_amplitudes)
         if norm > 0:
             combined_amplitudes /= norm
-        
+
         return Statevector(combined_amplitudes)
 
 
@@ -198,82 +217,81 @@ class AdaptiveVariationalAnsatz:
     """
     Adaptive variational quantum circuit ansatz that optimizes its structure
     based on the problem characteristics and hardware constraints.
-    
+
     This 2025 technique automatically adjusts circuit depth, entanglement
     patterns, and gate selection for optimal performance on NISQ devices.
     """
-    
+
     def __init__(self, num_qubits: int, max_depth: int = 10):
         self.num_qubits = num_qubits
         self.max_depth = max_depth
         self.current_depth = 1
-        self.entanglement_pattern = 'linear'
-        self.gate_set = ['ry', 'rz', 'cx']
-        
+        self.entanglement_pattern = "linear"
+        self.gate_set = ["ry", "rz", "cx"]
+
         # Performance tracking
         self.performance_history = []
         self.adaptation_threshold = 0.01
-        
+
         logger.info(f"Initialized AdaptiveVariationalAnsatz for {num_qubits} qubits")
-    
+
     def create_circuit(self, parameters: np.ndarray) -> QuantumCircuit:
         """Create adaptive variational circuit based on current configuration."""
         qc = QuantumCircuit(self.num_qubits)
-        
+
         param_idx = 0
         for layer in range(self.current_depth):
             # Parameterized rotation gates
             for qubit in range(self.num_qubits):
-                if 'ry' in self.gate_set and param_idx < len(parameters):
+                if "ry" in self.gate_set and param_idx < len(parameters):
                     qc.ry(parameters[param_idx], qubit)
                     param_idx += 1
-                if 'rz' in self.gate_set and param_idx < len(parameters):
+                if "rz" in self.gate_set and param_idx < len(parameters):
                     qc.rz(parameters[param_idx], qubit)
                     param_idx += 1
-            
+
             # Entangling gates based on current pattern
-            if 'cx' in self.gate_set:
+            if "cx" in self.gate_set:
                 self._add_entangling_layer(qc)
-        
+
         return qc
-    
+
     def _add_entangling_layer(self, qc: QuantumCircuit):
         """Add entangling gates based on current entanglement pattern."""
-        if self.entanglement_pattern == 'linear':
+        if self.entanglement_pattern == "linear":
             for i in range(self.num_qubits - 1):
                 qc.cx(i, i + 1)
-        elif self.entanglement_pattern == 'circular':
+        elif self.entanglement_pattern == "circular":
             for i in range(self.num_qubits - 1):
                 qc.cx(i, i + 1)
             qc.cx(self.num_qubits - 1, 0)
-        elif self.entanglement_pattern == 'full':
+        elif self.entanglement_pattern == "full":
             for i in range(self.num_qubits):
                 for j in range(i + 1, self.num_qubits):
                     qc.cx(i, j)
-    
+
     def adapt_structure(self, performance_metric: float):
         """Adapt circuit structure based on performance feedback."""
         self.performance_history.append(performance_metric)
-        
+
         # Check if adaptation is needed
         if len(self.performance_history) >= 5:
-            recent_improvement = (
-                np.mean(self.performance_history[-3:]) - 
-                np.mean(self.performance_history[-6:-3])
+            recent_improvement = np.mean(self.performance_history[-3:]) - np.mean(
+                self.performance_history[-6:-3]
             )
-            
+
             if recent_improvement < self.adaptation_threshold:
                 self._adapt_circuit_structure()
-    
+
     def _adapt_circuit_structure(self):
         """Adapt circuit structure for better performance."""
         # Increase depth if performance is stagnating
         if self.current_depth < self.max_depth:
             self.current_depth += 1
             logger.info(f"Increased circuit depth to {self.current_depth}")
-        
+
         # Try different entanglement patterns
-        patterns = ['linear', 'circular', 'full']
+        patterns = ["linear", "circular", "full"]
         current_idx = patterns.index(self.entanglement_pattern)
         next_pattern = patterns[(current_idx + 1) % len(patterns)]
         self.entanglement_pattern = next_pattern
@@ -284,42 +302,44 @@ class QuantumMemoryConsolidation:
     """
     Quantum memory consolidation protocol for optimizing stored quantum states
     and improving memory efficiency through quantum compression techniques.
-    
+
     This 2025 technique uses quantum algorithms to consolidate and compress
     quantum memory while preserving essential information.
     """
-    
+
     def __init__(self, num_qubits: int, compression_ratio: float = 0.7):
         self.num_qubits = num_qubits
         self.compression_ratio = compression_ratio
         self.consolidation_circuit = self._create_consolidation_circuit()
-        
-        logger.info(f"Initialized QuantumMemoryConsolidation with {compression_ratio:.1%} compression")
-    
+
+        logger.info(
+            f"Initialized QuantumMemoryConsolidation with {compression_ratio:.1%} compression"
+        )
+
     def _create_consolidation_circuit(self) -> QuantumCircuit:
         """Create quantum circuit for memory consolidation."""
         qc = QuantumCircuit(self.num_qubits)
-        
+
         # Apply quantum Fourier transform for frequency domain processing
         qft = QFT(self.num_qubits)
         qc.compose(qft, inplace=True)
-        
+
         # Add compression layers
         for i in range(self.num_qubits // 2):
             qc.cry(np.pi / 4, i, i + self.num_qubits // 2)
-        
+
         # Inverse QFT
         qc.compose(qft.inverse(), inplace=True)
-        
+
         return qc
-    
+
     def consolidate_memory(self, memory_states: List[Statevector]) -> List[Statevector]:
         """Consolidate quantum memory states for improved efficiency."""
         consolidated_states = []
-        
+
         # Group similar states for consolidation
         state_groups = self._group_similar_states(memory_states)
-        
+
         for group in state_groups:
             if len(group) > 1:
                 # Consolidate multiple similar states into one
@@ -327,45 +347,51 @@ class QuantumMemoryConsolidation:
                 consolidated_states.append(consolidated_state)
             else:
                 consolidated_states.extend(group)
-        
-        logger.info(f"Consolidated {len(memory_states)} states to {len(consolidated_states)}")
+
+        logger.info(
+            f"Consolidated {len(memory_states)} states to {len(consolidated_states)}"
+        )
         return consolidated_states
-    
-    def _group_similar_states(self, states: List[Statevector]) -> List[List[Statevector]]:
+
+    def _group_similar_states(
+        self, states: List[Statevector]
+    ) -> List[List[Statevector]]:
         """Group similar quantum states for consolidation."""
         groups = []
         similarity_threshold = 0.9
-        
+
         for state in states:
             # Find existing group with similar states
             assigned = False
             for group in groups:
-                if any(state_fidelity(state, group_state) > similarity_threshold 
-                       for group_state in group):
+                if any(
+                    state_fidelity(state, group_state) > similarity_threshold
+                    for group_state in group
+                ):
                     group.append(state)
                     assigned = True
                     break
-            
+
             if not assigned:
                 groups.append([state])
-        
+
         return groups
-    
+
     def _consolidate_state_group(self, state_group: List[Statevector]) -> Statevector:
         """Consolidate a group of similar states into a single representative state."""
         # Compute average state (simplified approach)
         avg_amplitudes = np.zeros(2**self.num_qubits, dtype=complex)
-        
+
         for state in state_group:
             avg_amplitudes += state.data
-        
+
         avg_amplitudes /= len(state_group)
-        
+
         # Normalize
         norm = np.linalg.norm(avg_amplitudes)
         if norm > 0:
             avg_amplitudes /= norm
-        
+
         return Statevector(avg_amplitudes)
 
 
@@ -385,7 +411,13 @@ class QuantumLSTM2025:
     - Enhanced temporal pattern recognition
     """
 
-    def __init__(self, num_qubits: int, hidden_size: int, num_segments: int = 4, input_size: int = None):
+    def __init__(
+        self,
+        num_qubits: int,
+        hidden_size: int,
+        num_segments: int = 4,
+        input_size: int = None,
+    ):
         self.num_qubits = num_qubits
         self.hidden_size = hidden_size
         self.num_segments = num_segments
@@ -402,9 +434,13 @@ class QuantumLSTM2025:
         self.quantum_projection = nn.Linear(self.input_size, num_qubits)
 
         # Segment processing parameters
-        self.segment_weights = nn.Parameter(torch.randn(num_segments, num_qubits, hidden_size))
+        self.segment_weights = nn.Parameter(
+            torch.randn(num_segments, num_qubits, hidden_size)
+        )
 
-        logger.info(f"Initialized QuantumLSTM2025 with {num_qubits} qubits, {hidden_size} hidden units, {num_segments} segments, {self.input_size} input size")
+        logger.info(
+            f"Initialized QuantumLSTM2025 with {num_qubits} qubits, {hidden_size} hidden units, {num_segments} segments, {self.input_size} input size"
+        )
 
     def _create_gate_circuit(self, gate_type: str) -> QuantumCircuit:
         """Create quantum circuit for LSTM gate operations."""
@@ -413,7 +449,7 @@ class QuantumLSTM2025:
         # Parameterized gates for different LSTM operations
         for i in range(self.num_qubits):
             # Use numeric parameters instead of string parameters
-            qc.ry(np.pi/4, i)  # Default angle, will be updated during execution
+            qc.ry(np.pi / 4, i)  # Default angle, will be updated during execution
             if i < self.num_qubits - 1:
                 qc.cx(i, i + 1)
 
@@ -429,8 +465,8 @@ class QuantumLSTM2025:
 
         # Quantum memory cell with controlled operations
         for i in range(self.num_qubits):
-            qc.ry(np.pi/3, i)  # Default angle for cell state
-            qc.rz(np.pi/6, i)  # Default phase for cell state
+            qc.ry(np.pi / 3, i)  # Default angle for cell state
+            qc.rz(np.pi / 6, i)  # Default phase for cell state
 
         # Quantum entanglement for memory correlations
         for i in range(self.num_qubits - 1):
@@ -438,7 +474,9 @@ class QuantumLSTM2025:
 
         return qc
 
-    def forward(self, input_sequence: torch.Tensor, hidden_state: Optional[torch.Tensor] = None) -> Tuple[torch.Tensor, torch.Tensor]:
+    def forward(
+        self, input_sequence: torch.Tensor, hidden_state: Optional[torch.Tensor] = None
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
         """
         Forward pass through Quantum LSTM.
 
@@ -470,11 +508,15 @@ class QuantumLSTM2025:
                 input_t = segment[:, t, :]
 
                 # Convert to quantum representation
-                quantum_input = self.quantum_projection(input_t)  # Shape: (batch_size, num_qubits)
+                quantum_input = self.quantum_projection(
+                    input_t
+                )  # Shape: (batch_size, num_qubits)
 
                 # Apply quantum LSTM gates (simplified for demonstration)
                 # In practice, this would involve quantum circuit execution
-                segment_weight = self.segment_weights[segment_idx]  # Shape: (num_qubits, hidden_size)
+                segment_weight = self.segment_weights[
+                    segment_idx
+                ]  # Shape: (num_qubits, hidden_size)
                 forget_weights = torch.sigmoid(quantum_input @ segment_weight)
                 input_weights = torch.sigmoid(quantum_input @ segment_weight)
                 output_weights = torch.sigmoid(quantum_input @ segment_weight)
@@ -483,7 +525,10 @@ class QuantumLSTM2025:
                 quantum_features = quantum_input @ segment_weight
 
                 # Update hidden state with quantum-enhanced operations
-                hidden_state = hidden_state * forget_weights + input_weights * torch.tanh(quantum_features)
+                hidden_state = (
+                    hidden_state * forget_weights
+                    + input_weights * torch.tanh(quantum_features)
+                )
                 output = output_weights * torch.tanh(hidden_state)
 
                 outputs.append(output)
@@ -507,14 +552,18 @@ class QAOAWarmStart2025:
     - Conditional diffusion for parameter generation
     """
 
-    def __init__(self, num_qubits: int, num_layers: int = 3, warm_start_ratio: float = 0.7):
+    def __init__(
+        self, num_qubits: int, num_layers: int = 3, warm_start_ratio: float = 0.7
+    ):
         self.num_qubits = num_qubits
         self.num_layers = num_layers
         self.warm_start_ratio = warm_start_ratio
 
         # QAOA parameters
         self.beta_params = np.random.uniform(0, np.pi, num_layers)  # Mixer parameters
-        self.gamma_params = np.random.uniform(0, 2*np.pi, num_layers)  # Problem parameters
+        self.gamma_params = np.random.uniform(
+            0, 2 * np.pi, num_layers
+        )  # Problem parameters
 
         # Adaptive bias parameters
         self.bias_correction = np.zeros(num_qubits)
@@ -523,7 +572,9 @@ class QAOAWarmStart2025:
         # Warm-start classical solution
         self.classical_solution = None
 
-        logger.info(f"Initialized QAOAWarmStart2025 with {num_qubits} qubits, {num_layers} layers")
+        logger.info(
+            f"Initialized QAOAWarmStart2025 with {num_qubits} qubits, {num_layers} layers"
+        )
 
     def set_warm_start_solution(self, classical_solution: np.ndarray):
         """Set classical solution for warm-start initialization."""
@@ -534,7 +585,9 @@ class QAOAWarmStart2025:
             if i < len(self.bias_correction):
                 self.bias_correction[i] = bit_value * self.warm_start_ratio
 
-    def create_qaoa_circuit(self, problem_hamiltonian: Dict[str, float]) -> QuantumCircuit:
+    def create_qaoa_circuit(
+        self, problem_hamiltonian: Dict[str, float]
+    ) -> QuantumCircuit:
         """Create QAOA circuit with warm-start and adaptive bias."""
         qc = QuantumCircuit(self.num_qubits)
 
@@ -546,7 +599,7 @@ class QAOAWarmStart2025:
 
         # Apply superposition with bias correction
         for i in range(self.num_qubits):
-            angle = np.pi/4 + self.bias_correction[i]
+            angle = np.pi / 4 + self.bias_correction[i]
             qc.ry(angle, i)
 
         # QAOA layers
@@ -590,7 +643,7 @@ class QAOAWarmStart2025:
             self.bias_correction[i] += self.adaptation_rate * gradient_estimate
 
         # Clip bias correction to reasonable range
-        self.bias_correction = np.clip(self.bias_correction, -np.pi/2, np.pi/2)
+        self.bias_correction = np.clip(self.bias_correction, -np.pi / 2, np.pi / 2)
 
 
 class GroverDynamicsOptimization2025:
@@ -623,9 +676,11 @@ class GroverDynamicsOptimization2025:
 
         # Optimization tracking
         self.best_solution = None
-        self.best_cost = float('inf')
+        self.best_cost = float("inf")
 
-        logger.info(f"Initialized GroverDynamicsOptimization2025 with {num_qubits} qubits, target precision {target_precision}")
+        logger.info(
+            f"Initialized GroverDynamicsOptimization2025 with {num_qubits} qubits, target precision {target_precision}"
+        )
 
     def _create_diffusion_operator(self) -> QuantumCircuit:
         """Create Grover diffusion operator (inversion about average)."""
@@ -654,7 +709,9 @@ class GroverDynamicsOptimization2025:
 
         return qc
 
-    def create_adaptive_oracle(self, cost_function: Callable[[np.ndarray], float], threshold: float) -> QuantumCircuit:
+    def create_adaptive_oracle(
+        self, cost_function: Callable[[np.ndarray], float], threshold: float
+    ) -> QuantumCircuit:
         """Create adaptive oracle that marks states below cost threshold."""
         qc = QuantumCircuit(self.num_qubits + 1)  # +1 for ancilla qubit
 
@@ -672,7 +729,9 @@ class GroverDynamicsOptimization2025:
 
         return qc
 
-    def grover_optimization_step(self, cost_function: Callable[[np.ndarray], float], current_threshold: float) -> QuantumCircuit:
+    def grover_optimization_step(
+        self, cost_function: Callable[[np.ndarray], float], current_threshold: float
+    ) -> QuantumCircuit:
         """Perform one Grover optimization step."""
         qc = QuantumCircuit(self.num_qubits + 1)
 
@@ -690,7 +749,9 @@ class GroverDynamicsOptimization2025:
         self.current_iteration += 1
         return qc
 
-    def optimize(self, cost_function: Callable[[np.ndarray], float], max_iterations: int = None) -> Dict[str, Any]:
+    def optimize(
+        self, cost_function: Callable[[np.ndarray], float], max_iterations: int = None
+    ) -> Dict[str, Any]:
         """
         Perform Grover-enhanced optimization.
 
@@ -705,7 +766,7 @@ class GroverDynamicsOptimization2025:
             max_iterations = self.optimal_iterations
 
         # Adaptive threshold strategy
-        initial_threshold = float('inf')
+        initial_threshold = float("inf")
         threshold_reduction = 0.9
         current_threshold = initial_threshold
 
@@ -713,7 +774,9 @@ class GroverDynamicsOptimization2025:
 
         for iteration in range(max_iterations):
             # Create and execute Grover step
-            grover_circuit = self.grover_optimization_step(cost_function, current_threshold)
+            grover_circuit = self.grover_optimization_step(
+                cost_function, current_threshold
+            )
 
             # Simulate measurement (in practice, this would be on quantum hardware)
             # For demonstration, we'll use a simplified approach
@@ -739,11 +802,12 @@ class GroverDynamicsOptimization2025:
                     break
 
         return {
-            'best_solution': self.best_solution,
-            'best_cost': self.best_cost,
-            'optimization_history': optimization_history,
-            'iterations': self.current_iteration,
-            'converged': len(optimization_history) > 1 and improvement < self.target_precision
+            "best_solution": self.best_solution,
+            "best_cost": self.best_cost,
+            "optimization_history": optimization_history,
+            "iterations": self.current_iteration,
+            "converged": len(optimization_history) > 1
+            and improvement < self.target_precision,
         }
 
     def _simulate_measurement(self, circuit: QuantumCircuit) -> np.ndarray:
@@ -757,5 +821,5 @@ class GroverDynamicsOptimization2025:
         outcome = np.random.choice(2**self.num_qubits, p=probabilities)
 
         # Convert to binary array
-        binary_string = format(outcome, f'0{self.num_qubits}b')
+        binary_string = format(outcome, f"0{self.num_qubits}b")
         return np.array([int(bit) for bit in binary_string])

@@ -6,6 +6,7 @@ with quantum memory systems in the QMANN architecture.
 """
 
 from .lstm import ClassicalLSTM
+
 # from .attention import AttentionMechanism, MultiHeadAttention  # TODO: Implement
 # from .memory import ClassicalMemory  # TODO: Implement
 # from .layers import MemoryAugmentedLayer  # TODO: Implement

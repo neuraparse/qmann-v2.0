@@ -14,7 +14,7 @@ from .multi_provider_backend import (
     ProviderConfig,
     BackendInfo,
     QuantumProvider,
-    get_quantum_backend
+    get_quantum_backend,
 )
 
 __all__ = [

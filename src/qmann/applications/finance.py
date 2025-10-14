@@ -43,7 +43,7 @@ from ..quantum import (
     QAOAWarmStart2025,
     QuantumLSTM2025,
     QuantumTransformerLayer2025,
-    QuantumTransformerConfig
+    QuantumTransformerConfig,
 )
 from ..hybrid import QuantumLSTM
 from ..core import QMANNConfig
@@ -54,6 +54,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class FinancialConfig:
     """Configuration for quantum financial applications."""
+
     num_assets: int = 50
     num_qubits: int = 8
     risk_tolerance: float = 0.1
@@ -67,57 +68,58 @@ class FinancialConfig:
 class QuantumPortfolioOptimizer:
     """
     Quantum Portfolio Optimization (2025)
-    
+
     Uses QAOA with warm-start for portfolio optimization problems.
     Based on latest financial industry quantum computing deployments.
     """
-    
+
     def __init__(self, config: FinancialConfig):
         self.config = config
         self.qaoa = QAOAWarmStart2025(
-            num_qubits=config.num_qubits,
-            num_layers=3,
-            warm_start_ratio=0.7
+            num_qubits=config.num_qubits, num_layers=3, warm_start_ratio=0.7
         )
         self.backend = AerSimulator()
-        
-        logger.info(f"Initialized Quantum Portfolio Optimizer for {config.num_assets} assets")
-    
-    def optimize_portfolio(self, returns: np.ndarray, covariance: np.ndarray, 
-                          risk_tolerance: float = None) -> Dict[str, Any]:
+
+        logger.info(
+            f"Initialized Quantum Portfolio Optimizer for {config.num_assets} assets"
+        )
+
+    def optimize_portfolio(
+        self, returns: np.ndarray, covariance: np.ndarray, risk_tolerance: float = None
+    ) -> Dict[str, Any]:
         """
         Optimize portfolio allocation using quantum computing.
-        
+
         Args:
             returns: Expected returns for each asset
             covariance: Covariance matrix of asset returns
             risk_tolerance: Risk tolerance parameter (0-1)
-            
+
         Returns:
             Optimization results with quantum advantage metrics
         """
         if risk_tolerance is None:
             risk_tolerance = self.config.risk_tolerance
-        
+
         # Convert to QAOA problem formulation
         problem_hamiltonian = self._create_portfolio_hamiltonian(
             returns, covariance, risk_tolerance
         )
-        
+
         # Classical warm-start solution (mean-variance optimization)
         classical_solution = self._classical_portfolio_optimization(
             returns, covariance, risk_tolerance
         )
-        
+
         # Set warm-start for QAOA
         self.qaoa.set_warm_start_solution(classical_solution)
-        
+
         # Create and optimize QAOA circuit
         qaoa_circuit = self.qaoa.create_qaoa_circuit(problem_hamiltonian)
-        
+
         # Simulate quantum optimization
         quantum_solution = self._simulate_qaoa_optimization(qaoa_circuit)
-        
+
         # Truncate returns and covariance for evaluation
         n_assets = len(quantum_solution)
         returns_truncated = returns[:n_assets]
@@ -131,39 +133,43 @@ class QuantumPortfolioOptimizer:
             quantum_solution, returns_truncated, covariance_truncated
         )
 
-        quantum_advantage = quantum_sharpe / classical_sharpe if classical_sharpe > 0 else 1.0
+        quantum_advantage = (
+            quantum_sharpe / classical_sharpe if classical_sharpe > 0 else 1.0
+        )
 
         return {
-            'quantum_allocation': quantum_solution,
-            'classical_allocation': classical_solution,
-            'quantum_sharpe_ratio': quantum_sharpe,
-            'classical_sharpe_ratio': classical_sharpe,
-            'quantum_advantage': quantum_advantage,
-            'expected_return': np.dot(quantum_solution, returns_truncated),
-            'portfolio_risk': np.sqrt(quantum_solution @ covariance_truncated @ quantum_solution),
-            'optimization_method': 'QAOA_WarmStart_2025'
+            "quantum_allocation": quantum_solution,
+            "classical_allocation": classical_solution,
+            "quantum_sharpe_ratio": quantum_sharpe,
+            "classical_sharpe_ratio": classical_sharpe,
+            "quantum_advantage": quantum_advantage,
+            "expected_return": np.dot(quantum_solution, returns_truncated),
+            "portfolio_risk": np.sqrt(
+                quantum_solution @ covariance_truncated @ quantum_solution
+            ),
+            "optimization_method": "QAOA_WarmStart_2025",
         }
-    
-    def _create_portfolio_hamiltonian(self, returns: np.ndarray, 
-                                     covariance: np.ndarray,
-                                     risk_tolerance: float) -> Dict[Tuple[int, ...], float]:
+
+    def _create_portfolio_hamiltonian(
+        self, returns: np.ndarray, covariance: np.ndarray, risk_tolerance: float
+    ) -> Dict[Tuple[int, ...], float]:
         """Create QAOA Hamiltonian for portfolio optimization."""
         hamiltonian = {}
-        
+
         # Return terms (single-qubit)
         for i in range(min(len(returns), self.config.num_qubits)):
             hamiltonian[(i,)] = -returns[i]  # Maximize returns
-        
+
         # Risk terms (two-qubit interactions)
         for i in range(min(len(returns), self.config.num_qubits)):
             for j in range(i + 1, min(len(returns), self.config.num_qubits)):
                 hamiltonian[(i, j)] = risk_tolerance * covariance[i, j]
-        
+
         return hamiltonian
-    
-    def _classical_portfolio_optimization(self, returns: np.ndarray,
-                                         covariance: np.ndarray,
-                                         risk_tolerance: float) -> np.ndarray:
+
+    def _classical_portfolio_optimization(
+        self, returns: np.ndarray, covariance: np.ndarray, risk_tolerance: float
+    ) -> np.ndarray:
         """Classical mean-variance portfolio optimization."""
         # Simplified mean-variance optimization
         n_assets = min(len(returns), self.config.num_qubits)
@@ -177,60 +183,65 @@ class QuantumPortfolioOptimizer:
 
         # Simple gradient-based optimization
         for _ in range(100):
-            gradient = returns_truncated - risk_tolerance * (covariance_truncated @ weights)
+            gradient = returns_truncated - risk_tolerance * (
+                covariance_truncated @ weights
+            )
             weights += 0.01 * gradient
             weights = np.maximum(weights, 0)  # No short selling
             weights /= np.sum(weights)  # Normalize
 
         return weights
-    
+
     def _simulate_qaoa_optimization(self, circuit: QuantumCircuit) -> np.ndarray:
         """Simulate QAOA optimization and extract solution."""
         # Simplified simulation - in practice would use quantum hardware
         n_assets = min(self.config.num_assets, self.config.num_qubits)
-        
+
         # Random solution weighted by QAOA optimization
         solution = np.random.dirichlet(np.ones(n_assets) * 2)
-        
+
         return solution
-    
-    def _calculate_sharpe_ratio(self, weights: np.ndarray, returns: np.ndarray,
-                               covariance: np.ndarray) -> float:
+
+    def _calculate_sharpe_ratio(
+        self, weights: np.ndarray, returns: np.ndarray, covariance: np.ndarray
+    ) -> float:
         """Calculate Sharpe ratio for portfolio."""
-        portfolio_return = np.dot(weights, returns[:len(weights)])
-        portfolio_risk = np.sqrt(weights @ covariance[:len(weights), :len(weights)] @ weights)
-        
+        portfolio_return = np.dot(weights, returns[: len(weights)])
+        portfolio_risk = np.sqrt(
+            weights @ covariance[: len(weights), : len(weights)] @ weights
+        )
+
         if portfolio_risk == 0:
             return 0.0
-        
+
         # Assuming risk-free rate of 0.02 (2%)
         risk_free_rate = 0.02
         sharpe_ratio = (portfolio_return - risk_free_rate) / portfolio_risk
-        
+
         return sharpe_ratio
 
 
 class QuantumFraudDetector:
     """
     Quantum Fraud Detection System (2025)
-    
+
     Uses quantum neural networks for real-time fraud detection
     in financial transactions.
     """
-    
+
     def __init__(self, config: FinancialConfig):
         self.config = config
-        
+
         # Quantum transformer for pattern recognition
         transformer_config = QuantumTransformerConfig(
             num_qubits=config.num_qubits,
             num_heads=4,
             hidden_dim=128,
             num_layers=2,
-            quantum_attention_ratio=0.6
+            quantum_attention_ratio=0.6,
         )
         self.quantum_transformer = QuantumTransformerLayer2025(transformer_config)
-        
+
         # Classical fraud detection layers
         self.fraud_classifier = nn.Sequential(
             nn.Linear(128, 64),
@@ -239,49 +250,52 @@ class QuantumFraudDetector:
             nn.Linear(64, 32),
             nn.ReLU(),
             nn.Linear(32, 1),
-            nn.Sigmoid()
+            nn.Sigmoid(),
         )
-        
+
         logger.info("Initialized Quantum Fraud Detector")
-    
+
     def detect_fraud(self, transaction_features: torch.Tensor) -> Dict[str, Any]:
         """
         Detect fraudulent transactions using quantum neural networks.
-        
+
         Args:
             transaction_features: Transaction feature tensor [batch_size, seq_len, features]
-            
+
         Returns:
             Fraud detection results with confidence scores
         """
         # Quantum feature extraction
         quantum_features = self.quantum_transformer(transaction_features)
-        
+
         # Aggregate features (mean pooling)
         aggregated_features = torch.mean(quantum_features, dim=1)
-        
+
         # Fraud classification
         fraud_probabilities = self.fraud_classifier(aggregated_features)
-        
+
         # Determine fraud flags
-        fraud_flags = (fraud_probabilities > self.config.fraud_detection_threshold).squeeze()
-        
+        fraud_flags = (
+            fraud_probabilities > self.config.fraud_detection_threshold
+        ).squeeze()
+
         return {
-            'fraud_probabilities': fraud_probabilities.detach().numpy(),
-            'fraud_flags': fraud_flags.detach().numpy(),
-            'confidence_scores': torch.abs(fraud_probabilities - 0.5).detach().numpy() * 2,
-            'quantum_enhanced': True,
-            'detection_threshold': self.config.fraud_detection_threshold
+            "fraud_probabilities": fraud_probabilities.detach().numpy(),
+            "fraud_flags": fraud_flags.detach().numpy(),
+            "confidence_scores": torch.abs(fraud_probabilities - 0.5).detach().numpy()
+            * 2,
+            "quantum_enhanced": True,
+            "detection_threshold": self.config.fraud_detection_threshold,
         }
 
 
 class QuantumMarketPredictor:
     """
     Quantum Market Prediction (2025)
-    
+
     Uses quantum LSTM for time-series prediction in financial markets.
     """
-    
+
     def __init__(self, config: FinancialConfig, input_size: int = None):
         self.config = config
         self.input_size = input_size if input_size is not None else config.num_qubits
@@ -291,32 +305,35 @@ class QuantumMarketPredictor:
             num_qubits=config.num_qubits,
             hidden_size=128,
             num_segments=4,
-            input_size=self.input_size
+            input_size=self.input_size,
         )
 
         # Prediction head
         self.prediction_head = nn.Linear(128, 1)
 
-        logger.info(f"Initialized Quantum Market Predictor with input_size={self.input_size}")
-    
-    def predict_market(self, historical_data: torch.Tensor,
-                      prediction_horizon: int = None) -> Dict[str, Any]:
+        logger.info(
+            f"Initialized Quantum Market Predictor with input_size={self.input_size}"
+        )
+
+    def predict_market(
+        self, historical_data: torch.Tensor, prediction_horizon: int = None
+    ) -> Dict[str, Any]:
         """
         Predict market movements using quantum LSTM.
-        
+
         Args:
             historical_data: Historical market data [batch_size, seq_len, features]
             prediction_horizon: Number of steps to predict
-            
+
         Returns:
             Market predictions with confidence intervals
         """
         if prediction_horizon is None:
             prediction_horizon = self.config.optimization_horizon
-        
+
         # Quantum LSTM forward pass
         lstm_output, hidden_state = self.quantum_lstm.forward(historical_data)
-        
+
         # Generate predictions
         predictions = []
 
@@ -328,23 +345,28 @@ class QuantumMarketPredictor:
             next_pred = self.prediction_head(last_output)  # Shape: (batch_size, 1)
             predictions.append(next_pred)
 
-        predictions_tensor = torch.stack(predictions, dim=1)  # Shape: (batch_size, horizon, 1)
-        
+        predictions_tensor = torch.stack(
+            predictions, dim=1
+        )  # Shape: (batch_size, horizon, 1)
+
         return {
-            'predictions': predictions_tensor.detach().numpy(),
-            'prediction_horizon': prediction_horizon,
-            'quantum_enhanced': True,
-            'confidence_intervals': self._calculate_confidence_intervals(predictions_tensor),
-            'model_type': 'QuantumLSTM_2025'
+            "predictions": predictions_tensor.detach().numpy(),
+            "prediction_horizon": prediction_horizon,
+            "quantum_enhanced": True,
+            "confidence_intervals": self._calculate_confidence_intervals(
+                predictions_tensor
+            ),
+            "model_type": "QuantumLSTM_2025",
         }
-    
-    def _calculate_confidence_intervals(self, predictions: torch.Tensor,
-                                       confidence_level: float = 0.95) -> np.ndarray:
+
+    def _calculate_confidence_intervals(
+        self, predictions: torch.Tensor, confidence_level: float = 0.95
+    ) -> np.ndarray:
         """Calculate confidence intervals for predictions."""
         # Simplified confidence interval calculation
         std = torch.std(predictions, dim=0).detach().numpy()
         z_score = 1.96  # 95% confidence
-        
+
         confidence_intervals = z_score * std
-        
+
         return confidence_intervals

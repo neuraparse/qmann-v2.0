@@ -12,7 +12,7 @@ from .exceptions import QMANNError, QuantumError, TrainingError
 
 __all__ = [
     "QMANNConfig",
-    "QMANNBase", 
+    "QMANNBase",
     "MemoryInterface",
     "QMANNError",
     "QuantumError",

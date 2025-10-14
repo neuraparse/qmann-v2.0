@@ -11,7 +11,7 @@ from .training_protocols import (
     QuantumParameterShift,
     HybridOptimizer,
     NISQAwareTraining,
-    AdvancedTrainingProtocols
+    AdvancedTrainingProtocols,
 )
 
 __all__ = [

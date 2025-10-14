@@ -31,7 +31,7 @@ from .finance import (
     FinancialConfig,
     QuantumPortfolioOptimizer,
     QuantumFraudDetector,
-    QuantumMarketPredictor
+    QuantumMarketPredictor,
 )
 
 # Drug Discovery Applications (2025)
@@ -40,7 +40,7 @@ from .drug_discovery import (
     QuantumMolecularPropertyPredictor,
     QuantumDrugTargetBindingPredictor,
     QuantumMolecularGenerator,
-    QuantumADMETPredictor
+    QuantumADMETPredictor,
 )
 
 # Materials Science Applications (2025)
@@ -48,32 +48,27 @@ from .materials_science import (
     MaterialsScienceConfig,
     QuantumMaterialPropertyPredictor,
     QuantumCrystalStructureOptimizer,
-    QuantumBatteryMaterialDesigner
+    QuantumBatteryMaterialDesigner,
 )
 
 __all__ = [
     # Healthcare
     "HealthcarePredictor",
-
     # Industrial
     "IndustrialMaintenance",
-
     # Autonomous
     "AutonomousCoordination",
-
     # Finance (2025)
     "FinancialConfig",
     "QuantumPortfolioOptimizer",
     "QuantumFraudDetector",
     "QuantumMarketPredictor",
-
     # Drug Discovery (2025)
     "DrugDiscoveryConfig",
     "QuantumMolecularPropertyPredictor",
     "QuantumDrugTargetBindingPredictor",
     "QuantumMolecularGenerator",
     "QuantumADMETPredictor",
-
     # Materials Science (2025)
     "MaterialsScienceConfig",
     "QuantumMaterialPropertyPredictor",
