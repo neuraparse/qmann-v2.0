@@ -42,8 +42,8 @@ class HealthcarePredictor(HybridComponent):
             input_size=input_features,
             hidden_size=256,
             num_layers=3,
-            quantum_memory_size=128,
-            quantum_qubits=16,
+            quantum_memory_size=64,
+            quantum_qubits=6,
             name=f"{name}_QMANN",
         )
 

@@ -87,6 +87,7 @@ class HybridConfig:
     quantum_classical_ratio: float = 0.3  # 30% quantum, 70% classical
     alternating_training: bool = True
     sync_frequency: int = 10  # Sync every 10 steps
+    coordination_strategy: str = "alternating"  # alternating, parallel, sequential
 
     # Gradient handling
     quantum_lr_scale: float = 0.1  # Scale quantum learning rates
