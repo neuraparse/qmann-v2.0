@@ -81,7 +81,12 @@ class ClassicalLSTM(ClassicalComponent):
             if "weight_ih" in name:
                 nn.init.xavier_uniform_(param.data)
             elif "weight_hh" in name:
-                nn.init.orthogonal_(param.data)
+                # Use orthogonal initialization, but fallback to xavier if not supported (e.g., MPS)
+                try:
+                    nn.init.orthogonal_(param.data)
+                except (NotImplementedError, RuntimeError):
+                    # Fallback for MPS or other devices that don't support QR decomposition
+                    nn.init.xavier_uniform_(param.data)
             elif "bias" in name:
                 nn.init.zeros_(param.data)
                 # Initialize forget gate bias to 1
@@ -158,6 +163,8 @@ class ClassicalLSTM(ClassicalComponent):
                 if len(retrieved_memory) > 0:
                     # Apply attention to retrieved memories
                     memory_tensor = retrieved_memory.unsqueeze(0)  # Add batch dim
+                    # Move memory tensor to the same device as the model
+                    memory_tensor = memory_tensor.to(current_state.device)
                     query_tensor = current_state.unsqueeze(0).unsqueeze(
                         0
                     )  # Add batch and seq dims

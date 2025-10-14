@@ -148,12 +148,14 @@ class TestQMANNIntegration:
 
         # Create quantum memory
         quantum_memory = QuantumMemory(
-            config=config, num_banks=2, bank_size=16, qubit_count=8
+            config=config, num_banks=2, bank_size=16, qubit_count=6
         )
         quantum_memory.initialize()
 
         # Test data flow
         input_data = torch.randn(1, 5, 10)  # batch=1, seq=5, features=10
+        # Move input to the same device as the model
+        input_data = input_data.to(classical_lstm.device)
 
         # Classical processing
         classical_output, _, classical_info = classical_lstm(input_data)
@@ -161,18 +163,22 @@ class TestQMANNIntegration:
         # Convert to quantum format and store
         for i in range(classical_output.shape[1]):  # For each time step
             classical_vector = classical_output[0, i].detach().cpu().numpy()
-            # Pad or truncate to match quantum memory size
-            if len(classical_vector) > 8:
-                classical_vector = classical_vector[:8]
-            elif len(classical_vector) < 8:
+            # Pad or truncate to match quantum memory size (2^6 = 64 dimensions)
+            if len(classical_vector) > 64:
+                classical_vector = classical_vector[:64]
+            elif len(classical_vector) < 64:
                 classical_vector = np.pad(
-                    classical_vector, (0, 8 - len(classical_vector))
+                    classical_vector, (0, 64 - len(classical_vector))
                 )
 
             quantum_memory.write(classical_vector)
 
         # Query quantum memory
-        query_vector = classical_output[0, -1].detach().cpu().numpy()[:8]
+        query_vector = classical_output[0, -1].detach().cpu().numpy()
+        if len(query_vector) > 64:
+            query_vector = query_vector[:64]
+        elif len(query_vector) < 64:
+            query_vector = np.pad(query_vector, (0, 64 - len(query_vector)))
         retrieved_items, similarities = quantum_memory.read(query_vector, k=2)
 
         assert isinstance(retrieved_items, list)
