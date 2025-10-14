@@ -296,8 +296,8 @@ class TestMaterialsScienceIntegration:
         property_predictor = QuantumMaterialPropertyPredictor(config)
         battery_designer = QuantumBatteryMaterialDesigner(config)
 
-        # Screen material for battery application
-        material_features = torch.randn(1, 20, 512)
+        # Screen material for battery application (384 = hidden_dim of QuantumBatteryMaterialDesigner)
+        material_features = torch.randn(1, 20, 384)
 
         # Predict general properties
         properties = property_predictor.predict_properties(material_features)

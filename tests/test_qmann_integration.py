@@ -344,7 +344,7 @@ class TestQMANNIntegration:
         classical_model.initialize()
 
         # Benchmark forward pass times
-        input_data = torch.randn(4, 10, 10)
+        input_data = torch.randn(4, 10, 10, device=quantum_model.device)
 
         # Quantum model timing
         import time
