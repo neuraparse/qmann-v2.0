@@ -97,6 +97,12 @@ Issues = "https://github.com/neuraparse/qmann-v2.0/issues"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+qmann = ["py.typed"]
+
 [tool.black]
 line-length = 88
 target-version = ['py310', 'py311', 'py312']
