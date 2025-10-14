@@ -210,16 +210,20 @@ class QMatrix(QuantumMemoryInterface):
             # Create statevector and initialize
             try:
                 circuit.initialize(padded_data, self.memory_register)
+                # No need to apply variational encoding if direct initialization succeeds
+                return circuit
             except Exception as e:
                 self.logger.warning(
                     f"Direct initialization failed: {e}, using parametric encoding"
                 )
                 # Fallback to parametric encoding
+                # Create a new circuit with parametric encoding
+                circuit = QuantumCircuit(self.memory_register, self.classical_register)
                 circuit.compose(self.encoding_circuit, inplace=True)
 
-        # Apply variational encoding
-        param_dict = dict(zip(self.encoding_params, self.current_params))
-        bound_circuit = circuit.assign_parameters(param_dict)
+                # Apply variational encoding
+                param_dict = dict(zip(self.encoding_params, self.current_params))
+                bound_circuit = circuit.assign_parameters(param_dict)
 
         return bound_circuit
 
