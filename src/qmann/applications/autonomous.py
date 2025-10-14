@@ -79,7 +79,6 @@ class AutonomousCoordination(HybridComponent):
             hidden_size=64,
             quantum_memory_size=256,  # Large memory for swarm coordination
             quantum_qubits=16,
-            output_size=32,
         )
 
         # Decision-making heads

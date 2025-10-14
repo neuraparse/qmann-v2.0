@@ -674,7 +674,7 @@ class MultiProviderBackendManager:
 
     def estimate_cost(
         self, num_circuits: int, shots_per_circuit: int, backend_info: BackendInfo
-    ) -> Dict[str, float]:
+    ) -> Dict[str, Any]:
         """
         Estimate execution cost.
 
@@ -690,11 +690,11 @@ class MultiProviderBackendManager:
         total_cost = total_shots * backend_info.cost_per_shot
 
         return {
-            "total_shots": total_shots,
+            "total_shots": float(total_shots),
             "cost_per_shot": backend_info.cost_per_shot,
             "total_cost_usd": total_cost,
-            "backend": backend_info.name,
-            "provider": backend_info.provider.value,
+            "backend": str(backend_info.name),
+            "provider": str(backend_info.provider.value),
         }
 
 

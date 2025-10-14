@@ -80,7 +80,6 @@ class IndustrialMaintenance(HybridComponent):
             hidden_size=64,
             quantum_memory_size=128,
             quantum_qubits=12,
-            output_size=32,
         )
 
         # Prediction heads

@@ -25,9 +25,9 @@ class QuantumSecurityValidator:
     - Insecure quantum circuit handling
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the quantum security validator."""
-        self.security_patterns = {
+        self.security_patterns: Dict[str, List[str]] = {
             "credentials": [
                 r'QISKIT_IBM_TOKEN\s*=\s*["\'][^"\']+["\']',
                 r'qiskit.*token\s*=\s*["\'][^"\']+["\']',
@@ -202,7 +202,7 @@ class QuantumSecurityValidator:
         return validation_results
 
 
-def validate_quantum_circuit_security(circuit) -> Dict[str, Any]:
+def validate_quantum_circuit_security(circuit: Any) -> Dict[str, Any]:
     """
     Validate quantum circuit for security issues.
 
@@ -212,7 +212,11 @@ def validate_quantum_circuit_security(circuit) -> Dict[str, Any]:
     Returns:
         Dictionary containing validation results
     """
-    validation_results = {"secure": True, "issues": [], "recommendations": []}
+    validation_results: Dict[str, Any] = {
+        "secure": True,
+        "issues": [],
+        "recommendations": [],
+    }
 
     try:
         # Check circuit size (large circuits might be resource intensive)
@@ -238,7 +242,7 @@ def validate_quantum_circuit_security(circuit) -> Dict[str, Any]:
     return validation_results
 
 
-def secure_quantum_token_handler():
+def secure_quantum_token_handler() -> Optional[str]:
     """
     Secure handler for quantum computing tokens.
 

@@ -13,10 +13,7 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from src.qmann import QMANNConfig
 from src.qmann.hybrid import QuantumLSTM, HybridTrainer
-from src.qmann.hybrid.training_protocols import (
-    AdvancedTrainingProtocols,
-    PerformanceBenchmark,
-)
+from src.qmann.hybrid.training_protocols import AdvancedTrainingProtocols
 from src.qmann.applications import HealthcarePredictor
 from src.qmann.quantum import QMatrix, QuantumMemory
 from src.qmann.classical import ClassicalLSTM
