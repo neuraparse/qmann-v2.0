@@ -97,9 +97,6 @@ Issues = "https://github.com/neuraparse/qmann-v2.0/issues"
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.setuptools.packages.find]
-where = ["src"]
-
 [tool.setuptools.package-data]
 qmann = ["py.typed"]
 
