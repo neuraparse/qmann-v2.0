@@ -104,11 +104,15 @@ class HealthcarePredictor(HybridComponent):
         else:
             return torch.device("cpu")
 
-    def forward(self, patient_data: torch.Tensor, patient_id: Optional[str] = None) -> torch.Tensor:
+    def forward(
+        self, patient_data: torch.Tensor, patient_id: Optional[str] = None
+    ) -> torch.Tensor:
         """Forward pass through the healthcare predictor."""
         return self.predict_patient_outcome(patient_data, patient_id)
 
-    def quantum_classical_interface(self, quantum_output: torch.Tensor, classical_input: torch.Tensor) -> torch.Tensor:
+    def quantum_classical_interface(
+        self, quantum_output: torch.Tensor, classical_input: torch.Tensor
+    ) -> torch.Tensor:
         """Interface between quantum and classical components."""
         # Combine quantum and classical outputs
         combined = torch.cat([quantum_output, classical_input], dim=-1)
