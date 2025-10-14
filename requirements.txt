@@ -4,7 +4,7 @@
 # Core Quantum Computing (2025 State-of-the-Art)
 qiskit>=2.1.2                    # IBM Quantum framework with latest 2025 features
 qiskit-ibm-runtime>=0.32.0       # IBM Quantum Runtime Service with 127-qubit support
-qiskit-ibm-provider>=0.12.0      # IBM Quantum Provider with enhanced backends
+# qiskit-ibm-provider is deprecated - use qiskit-ibm-runtime instead
 qiskit-aer>=0.15.1               # High-performance quantum simulator with GPU support
 qiskit-algorithms>=0.3.1         # Quantum algorithms with NISQ optimizations
 qiskit-machine-learning>=0.8.1   # Quantum ML toolkit with 2025 enhancements

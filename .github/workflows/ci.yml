@@ -152,7 +152,11 @@ jobs:
         tool: 'pytest'
         output-file-path: benchmark.json
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        auto-push: true
+        auto-push: false
+        save-data-file: true
+        alert-threshold: '200%'
+        comment-on-alert: true
+        fail-on-alert: false
 
   security-scan:
     runs-on: ubuntu-latest
@@ -183,7 +187,7 @@ jobs:
       continue-on-error: true
 
     - name: Upload security reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: security-reports
         path: |
@@ -214,7 +218,7 @@ jobs:
         make html
 
     - name: Upload documentation
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: documentation
         path: docs/_build/html/
