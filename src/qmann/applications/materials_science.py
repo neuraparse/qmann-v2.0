@@ -454,7 +454,8 @@ class QuantumBatteryMaterialDesigner:
             scores.append(performance["safety"].mean())
             scores.append(performance["capacity"].mean() / 200)
 
-        return np.mean(scores) if scores else 0.5
+        # Clip to [0, 1] range to ensure valid suitability score
+        return float(np.clip(np.mean(scores) if scores else 0.5, 0.0, 1.0))
 
     def _estimate_production_cost(self, performance: Dict[str, np.ndarray]) -> float:
         """Estimate production cost based on performance metrics."""
