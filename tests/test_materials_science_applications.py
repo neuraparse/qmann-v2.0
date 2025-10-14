@@ -286,7 +286,9 @@ class TestMaterialsScienceIntegration:
 
         # Verify workflow
         assert properties["material_quality_score"] >= 0
-        assert "energy_improvement" in optimized  # Energy improvement can be negative if optimization didn't improve
+        assert (
+            "energy_improvement" in optimized
+        )  # Energy improvement can be negative if optimization didn't improve
         assert isinstance(optimized["energy_improvement"], (int, float, np.number))
         assert len(properties["application_suitability"]) > 0
 
