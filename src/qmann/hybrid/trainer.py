@@ -111,7 +111,7 @@ class HybridTrainer:
 
         # Learning rate scheduler
         self.scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-            self.classical_optimizer, mode="min", factor=0.5, patience=5, verbose=True
+            self.classical_optimizer, mode="min", factor=0.5, patience=5
         )
 
         self.logger.info("Optimizers configured")
