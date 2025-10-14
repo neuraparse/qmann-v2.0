@@ -28,7 +28,7 @@ class TestQuantumSimulator:
         qc = QuantumCircuit(2, 2)
         qc.h(0)
         qc.cx(0, 1)
-        qc.measure_all()
+        qc.measure([0, 1], [0, 1])
 
         assert qc.num_qubits == 2
         assert qc.num_clbits == 2
@@ -40,7 +40,7 @@ class TestQuantumSimulator:
         qc = QuantumCircuit(2, 2)
         qc.h(0)
         qc.cx(0, 1)
-        qc.measure_all()
+        qc.measure([0, 1], [0, 1])
 
         # Use Aer simulator
         simulator = AerSimulator()
@@ -64,7 +64,7 @@ class TestQuantumSimulator:
         for i in range(num_qubits):
             qc.h(i)
 
-        qc.measure_all()
+        qc.measure(range(num_qubits), range(num_qubits))
 
         assert qc.num_qubits == num_qubits
         assert qc.num_clbits == num_qubits

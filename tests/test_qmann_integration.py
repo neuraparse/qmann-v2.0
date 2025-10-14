@@ -12,6 +12,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
 from src.qmann import QMANNConfig
+from src.qmann.core.config import QuantumConfig, ClassicalConfig, HybridConfig
 from src.qmann.hybrid import QuantumLSTM, HybridTrainer
 from src.qmann.hybrid.training_protocols import AdvancedTrainingProtocols
 from src.qmann.applications import HealthcarePredictor
@@ -27,16 +28,18 @@ class TestQMANNIntegration:
     def config(self):
         """Create test configuration."""
         return QMANNConfig(
-            quantum=QMANNConfig.QuantumConfig(
+            quantum=QuantumConfig(
                 max_qubits=8,  # Smaller for testing
+                memory_qubits=4,  # Reduced for testing
+                ancilla_qubits=2,  # Reduced for testing
                 enable_error_mitigation=False,  # Disable for faster tests
             ),
-            classical=QMANNConfig.ClassicalConfig(
+            classical=ClassicalConfig(
                 learning_rate=0.001,
                 max_epochs=5,  # Fewer epochs for testing
                 early_stopping_patience=3,
             ),
-            hybrid=QMANNConfig.HybridConfig(
+            hybrid=HybridConfig(
                 quantum_classical_ratio=0.3,
                 alternating_training=False,
                 sync_frequency=10,

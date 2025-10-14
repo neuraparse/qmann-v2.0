@@ -258,7 +258,7 @@ class QuantumCrystalStructureOptimizer:
 
         for step in range(self.config.structure_optimization_steps):
             # Create quantum circuit with current parameters
-            circuit = self.structure_optimizer.create_adaptive_circuit(current_params)
+            circuit = self.structure_optimizer.create_circuit(current_params)
 
             # Calculate energy expectation
             energy = self._calculate_energy_expectation(circuit, energy_function)
