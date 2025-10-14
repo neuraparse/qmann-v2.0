@@ -454,7 +454,7 @@ class QuantumLSTM(HybridComponent, nn.Module):
 
     def load_checkpoint(self, filepath: str) -> None:
         """Load model checkpoint and restore quantum memory state."""
-        checkpoint = torch.load(filepath, map_location=self.device)
+        checkpoint = torch.load(filepath, map_location=self.device, weights_only=False)
 
         self.load_state_dict(checkpoint["model_state_dict"])
         self.quantum_operations = checkpoint.get("quantum_operations", 0)
