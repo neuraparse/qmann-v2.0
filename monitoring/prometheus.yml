@@ -1,0 +1,176 @@
+# Prometheus configuration for QMANN monitoring
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'qmann-cluster'
+    environment: 'production'
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  - "alert_rules.yml"
+  - "recording_rules.yml"
+
+# Scrape configuration
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # QMANN application metrics
+  - job_name: 'qmann-app'
+    static_configs:
+      - targets: ['qmann-prod:8080', 'qmann-dev:8080']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+    scrape_timeout: 5s
+    honor_labels: true
+
+  # QMANN quantum metrics
+  - job_name: 'qmann-quantum'
+    static_configs:
+      - targets: ['qmann-quantum:8081']
+    metrics_path: '/quantum/metrics'
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    params:
+      format: ['prometheus']
+
+  # QMANN GPU metrics (if available)
+  - job_name: 'qmann-gpu'
+    static_configs:
+      - targets: ['qmann-gpu:8082']
+    metrics_path: '/gpu/metrics'
+    scrape_interval: 5s
+    scrape_timeout: 3s
+
+  # Node exporter for system metrics
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 15s
+
+  # cAdvisor for container metrics
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    scrape_interval: 15s
+
+  # Redis metrics
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+    scrape_interval: 15s
+
+  # PostgreSQL metrics
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+    scrape_interval: 15s
+
+  # Nginx metrics
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx-exporter:9113']
+    scrape_interval: 15s
+
+  # IBM Quantum backend status (custom exporter)
+  - job_name: 'ibm-quantum'
+    static_configs:
+      - targets: ['ibm-quantum-exporter:9200']
+    metrics_path: '/quantum/backends'
+    scrape_interval: 60s
+    scrape_timeout: 30s
+
+  # QMANN training metrics
+  - job_name: 'qmann-training'
+    static_configs:
+      - targets: ['qmann-training:8083']
+    metrics_path: '/training/metrics'
+    scrape_interval: 30s
+    params:
+      include_gradients: ['true']
+      include_quantum_fidelity: ['true']
+
+  # QMANN inference metrics
+  - job_name: 'qmann-inference'
+    static_configs:
+      - targets: ['qmann-inference:8084']
+    metrics_path: '/inference/metrics'
+    scrape_interval: 10s
+
+  # Healthcare application metrics
+  - job_name: 'qmann-healthcare'
+    static_configs:
+      - targets: ['qmann-healthcare:8085']
+    metrics_path: '/healthcare/metrics'
+    scrape_interval: 20s
+
+  # Industrial application metrics
+  - job_name: 'qmann-industrial'
+    static_configs:
+      - targets: ['qmann-industrial:8086']
+    metrics_path: '/industrial/metrics'
+    scrape_interval: 20s
+
+  # Autonomous systems metrics
+  - job_name: 'qmann-autonomous'
+    static_configs:
+      - targets: ['qmann-autonomous:8087']
+    metrics_path: '/autonomous/metrics'
+    scrape_interval: 15s
+
+  # Error mitigation metrics
+  - job_name: 'qmann-error-mitigation'
+    static_configs:
+      - targets: ['qmann-error-mitigation:8088']
+    metrics_path: '/error_mitigation/metrics'
+    scrape_interval: 30s
+
+  # Quantum memory metrics
+  - job_name: 'qmann-quantum-memory'
+    static_configs:
+      - targets: ['qmann-quantum-memory:8089']
+    metrics_path: '/quantum_memory/metrics'
+    scrape_interval: 20s
+
+# Remote write configuration for long-term storage
+remote_write:
+  - url: "http://thanos-receive:19291/api/v1/receive"
+    queue_config:
+      max_samples_per_send: 1000
+      max_shards: 200
+      capacity: 2500
+
+# Remote read configuration
+remote_read:
+  - url: "http://thanos-query:9090/api/v1/query"
+    read_recent: true
+
+# Storage configuration
+storage:
+  tsdb:
+    path: /prometheus/data
+    retention.time: 30d
+    retention.size: 50GB
+    wal-compression: true
+
+# Web configuration
+web:
+  console.templates: /etc/prometheus/consoles
+  console.libraries: /etc/prometheus/console_libraries
+  enable-lifecycle: true
+  enable-admin-api: true
+
+# Feature flags
+feature_flags:
+  - promql-at-modifier
+  - promql-negative-offset

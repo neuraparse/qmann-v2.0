@@ -1,0 +1,131 @@
+# QMANN - Quantum Memory-Augmented Neural Networks
+# Requirements for 2025 quantum computing and machine learning stack
+
+# Core Quantum Computing (2025 State-of-the-Art)
+qiskit>=2.1.2                    # IBM Quantum framework with latest 2025 features
+qiskit-ibm-runtime>=0.32.0       # IBM Quantum Runtime Service with 127-qubit support
+qiskit-ibm-provider>=0.12.0      # IBM Quantum Provider with enhanced backends
+qiskit-aer>=0.15.1               # High-performance quantum simulator with GPU support
+qiskit-algorithms>=0.3.1         # Quantum algorithms with NISQ optimizations
+qiskit-machine-learning>=0.8.1   # Quantum ML toolkit with 2025 enhancements
+qiskit-optimization>=0.7.1       # Quantum optimization with hybrid algorithms
+qiskit-dynamics>=0.5.0           # Quantum system dynamics simulation
+qiskit-serverless>=0.15.0        # Serverless quantum computing
+qiskit-ibm-transpiler>=0.5.0     # Advanced quantum circuit transpilation
+
+# Alternative Quantum Frameworks
+pennylane>=0.37.0                # Xanadu quantum ML framework
+pennylane-qiskit>=0.37.0         # PennyLane-Qiskit integration
+cirq>=1.4.0                      # Google quantum computing framework
+mitiq>=0.38.0                    # Quantum error mitigation library
+
+# Core Machine Learning (2025 Latest)
+torch>=2.4.0                     # PyTorch with CUDA 12+ support
+torchvision>=0.19.0              # Computer vision for PyTorch
+torchaudio>=2.4.0                # Audio processing for PyTorch
+numpy>=1.26.0                    # Numerical computing foundation
+scipy>=1.13.0                    # Scientific computing library
+
+# Data Science and Visualization
+pandas>=2.2.0                    # Data manipulation and analysis
+matplotlib>=3.9.0                # Plotting and visualization
+seaborn>=0.13.0                  # Statistical data visualization
+plotly>=5.22.0                   # Interactive plotting
+dash>=2.17.0                     # Web applications for ML
+
+# Machine Learning Utilities
+scikit-learn>=1.5.0              # Classical machine learning
+optuna>=3.6.0                    # Hyperparameter optimization
+tensorboard>=2.17.0              # Experiment tracking
+wandb>=0.17.0                    # Weights & Biases for ML tracking
+
+# Development and Testing
+pytest>=8.3.0                    # Testing framework
+pytest-cov>=5.0.0                # Coverage testing
+pytest-benchmark>=4.0.0          # Performance benchmarking
+black>=24.8.0                    # Code formatting
+flake8>=7.1.0                    # Code linting
+mypy>=1.11.0                     # Static type checking
+pre-commit>=3.8.0                # Git hooks for code quality
+
+# Documentation
+sphinx>=7.4.0                    # Documentation generation
+sphinx-rtd-theme>=2.0.0          # Read the Docs theme
+jupyter>=1.1.0                   # Jupyter notebooks
+jupyterlab>=4.2.0                # JupyterLab interface
+ipywidgets>=8.1.0                # Interactive widgets
+ipykernel>=6.29.0                # Jupyter kernel
+
+# Performance and Optimization
+numba>=0.60.0                    # JIT compilation for Python
+cython>=3.0.0                    # C extensions for Python
+psutil>=6.0.0                    # System and process utilities
+cupy-cuda12x>=13.2.0             # CUDA acceleration for NumPy
+jax>=0.4.30                      # High-performance ML library
+jaxlib>=0.4.30                   # JAX backend
+
+# Data Processing
+h5py>=3.11.0                     # HDF5 file format support
+zarr>=2.18.0                     # Chunked, compressed arrays
+dask>=2024.9.0                   # Parallel computing library
+
+# Networking and APIs
+requests>=2.32.0                 # HTTP library
+aiohttp>=3.10.0                  # Async HTTP client/server
+fastapi>=0.112.0                 # Modern web framework
+uvicorn>=0.30.0                  # ASGI server
+
+# Database and Storage
+sqlalchemy>=2.0.0                # SQL toolkit and ORM
+redis>=5.0.0                     # In-memory data structure store
+
+# Security and Authentication
+cryptography>=43.0.0             # Cryptographic recipes and primitives
+pyjwt>=2.9.0                     # JSON Web Token implementation
+bcrypt>=4.2.0                    # Password hashing
+
+# Configuration and Environment
+python-dotenv>=1.0.0             # Load environment variables
+pydantic>=2.8.0                  # Data validation using Python type hints
+click>=8.1.0                     # Command line interface creation
+
+# Monitoring and Logging
+prometheus-client>=0.20.0        # Prometheus metrics client
+structlog>=24.4.0                # Structured logging
+sentry-sdk>=2.13.0               # Error tracking and monitoring
+
+# Cloud and Deployment
+docker>=7.1.0                    # Docker SDK for Python
+kubernetes>=30.1.0               # Kubernetes Python client
+boto3>=1.35.0                    # AWS SDK for Python
+
+# Quantum Hardware Specific (2025 Latest)
+qiskit-braket-provider>=0.4.0    # AWS Braket provider for Qiskit
+qiskit-ionq>=0.5.0               # IonQ provider for Qiskit
+qiskit-rigetti>=0.5.0            # Rigetti provider for Qiskit
+
+# Additional 2025 Quantum Technologies
+qiskit-ibm-transpiler>=0.5.0     # IBM Quantum transpiler service
+qiskit-serverless>=0.15.0        # Serverless quantum computing
+qiskit-qasm3-import>=0.5.0       # OpenQASM 3.0 support
+qiskit-dynamics>=0.5.0           # Quantum system dynamics simulation
+
+# Advanced ML Libraries (2025)
+transformers>=4.45.0             # Hugging Face transformers
+accelerate>=0.34.0               # Distributed training acceleration
+datasets>=2.21.0                 # ML datasets library
+evaluate>=0.4.0                  # ML evaluation metrics
+
+# Quantum Error Correction (Emerging 2025)
+stim>=1.12.0                     # Quantum error correction simulator
+pymatching>=2.2.0                # Minimum weight perfect matching
+
+# High-Performance Computing
+mpi4py>=3.1.0                    # MPI for Python
+ray>=2.35.0                      # Distributed computing framework
+
+# Advanced Visualization (2025)
+bokeh>=3.5.0                     # Interactive visualization
+altair>=5.4.0                    # Statistical visualization
+holoviews>=1.19.0                # Data visualization
+panel>=1.5.0                     # Web apps and dashboards

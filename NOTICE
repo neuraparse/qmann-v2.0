@@ -1,0 +1,71 @@
+QMANN - Quantum Memory-Augmented Neural Networks
+Copyright 2025 QMANN Research Team
+
+This product includes software developed by the QMANN Research Team.
+
+This software contains components from the following open source projects:
+
+Qiskit
+Copyright 2017-2025 IBM Corporation
+Licensed under the Apache License, Version 2.0
+https://github.com/Qiskit/qiskit
+
+PyTorch
+Copyright (c) 2016-2025 Facebook, Inc (Adam Paszke)
+Copyright (c) 2014-2025 Facebook, Inc (Soumith Chintala)
+Licensed under the BSD 3-Clause License
+https://github.com/pytorch/pytorch
+
+NumPy
+Copyright (c) 2005-2025, NumPy Developers
+Licensed under the BSD 3-Clause License
+https://github.com/numpy/numpy
+
+SciPy
+Copyright (c) 2001-2025, SciPy Developers
+Licensed under the BSD 3-Clause License
+https://github.com/scipy/scipy
+
+Matplotlib
+Copyright (c) 2012-2025 Matplotlib Development Team
+Licensed under the Matplotlib License (based on PSF)
+https://github.com/matplotlib/matplotlib
+
+Pandas
+Copyright (c) 2008-2025, AQR Capital Management, LLC, Lambda Foundry, Inc. and PyData Development Team
+Licensed under the BSD 3-Clause License
+https://github.com/pandas-dev/pandas
+
+Scikit-learn
+Copyright (c) 2007-2025 The scikit-learn developers
+Licensed under the BSD 3-Clause License
+https://github.com/scikit-learn/scikit-learn
+
+Mitiq
+Copyright (c) 2020-2025 Unitary Fund
+Licensed under the Apache License, Version 2.0
+https://github.com/unitaryfund/mitiq
+
+PennyLane
+Copyright 2018-2025 Xanadu Quantum Technologies Inc.
+Licensed under the Apache License, Version 2.0
+https://github.com/PennyLaneAI/pennylane
+
+Cirq
+Copyright 2018-2025 The Cirq Developers
+Licensed under the Apache License, Version 2.0
+https://github.com/quantumlib/Cirq
+
+This project is part of the quantum machine learning research initiative
+and is designed to advance the field of quantum-enhanced artificial intelligence.
+
+For more information about licensing and attribution, please see the LICENSE file
+and the individual component licenses in their respective repositories.
+
+QMANN Research Team
+Email: qmann@research.org
+Website: https://qmann-research.org
+
+Quantum Computing Research Laboratory
+Advanced AI Systems Division
+2025
