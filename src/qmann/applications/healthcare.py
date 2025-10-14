@@ -16,7 +16,7 @@ from ..hybrid import QuantumLSTM, HybridTrainer
 from ..core.exceptions import ApplicationError
 
 
-class HealthcarePredictor(HybridComponent):
+class HealthcarePredictor(nn.Module, HybridComponent):
     """
     Healthcare prediction system using quantum memory-augmented neural networks.
 
@@ -31,7 +31,8 @@ class HealthcarePredictor(HybridComponent):
         prediction_horizon: int = 30,
         name: str = "HealthcarePredictor",
     ):
-        super().__init__(config, name)
+        nn.Module.__init__(self)
+        HybridComponent.__init__(self, config, name)
 
         self.input_features = input_features
         self.prediction_horizon = prediction_horizon
