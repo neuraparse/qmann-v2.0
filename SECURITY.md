@@ -19,7 +19,7 @@ Security vulnerabilities should be reported privately to allow us to fix them be
 
 ### 2. Send a detailed report to our security team
 
-Email: security@qmann-research.org
+Email: security@qmann.org
 
 Include the following information:
 - Description of the vulnerability
@@ -110,7 +110,7 @@ We appreciate the security research community's efforts to improve QMANN's secur
 
 ### 9. Contact Information
 
-- **Security Team**: security@qmann-research.org
+- **Security Team**: security@qmann.org
 - **General Contact**: qmann@research.org
 - **Emergency Contact**: +1-XXX-XXX-XXXX (for critical vulnerabilities only)
 

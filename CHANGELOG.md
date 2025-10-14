@@ -427,4 +427,4 @@ For more detailed information about any release, please see the corresponding Gi
 
 **Maintained by**: QMANN Research Team  
 **Contact**: qmann@research.org  
-**Website**: https://qmann-research.org
+**Website**: https://qmann.org

@@ -285,10 +285,10 @@ qmann-v2.0/
 
 ## 📞 **Contact & Support**
 
-- **GitHub**: https://github.com/qmann-research/qmann
+- **GitHub**: https://https://github.com/neuraparse/qmann-v2.0
 - **Documentation**: https://qmann.readthedocs.io
-- **Issues**: https://github.com/qmann-research/qmann/issues
-- **Discussions**: https://github.com/qmann-research/qmann/discussions
+- **Issues**: https://https://github.com/neuraparse/qmann-v2.0/issues
+- **Discussions**: https://https://github.com/neuraparse/qmann-v2.0/discussions
 
 ---
 

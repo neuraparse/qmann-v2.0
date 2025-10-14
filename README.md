@@ -128,7 +128,7 @@ QMANN provides production-ready quantum solutions for major industries:
 
 ```bash
 # Clone the repository
-git clone https://github.com/qmann-research/qmann.git
+git clone https://https://github.com/neuraparse/qmann-v2.0.git
 cd qmann
 
 # Install dependencies
@@ -264,7 +264,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
   title={QMANN: Quantum Memory-Augmented Neural Networks},
   author={QMANN Research Team},
   year={2025},
-  url={https://github.com/qmann-research/qmann}
+  url={https://https://github.com/neuraparse/qmann-v2.0}
 }
 ```
 

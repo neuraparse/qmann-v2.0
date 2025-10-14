@@ -15,7 +15,7 @@ Thank you for your interest in contributing to QMANN (Quantum Memory-Augmented N
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/qmann-research/qmann.git
+   git clone https://https://github.com/neuraparse/qmann-v2.0.git
    cd qmann
    ```
 

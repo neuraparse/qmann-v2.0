@@ -68,10 +68,10 @@ docs = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/qmann-research/qmann"
+Homepage = "https://https://github.com/neuraparse/qmann-v2.0"
 Documentation = "https://qmann.readthedocs.io"
-Repository = "https://github.com/qmann-research/qmann"
-Issues = "https://github.com/qmann-research/qmann/issues"
+Repository = "https://https://github.com/neuraparse/qmann-v2.0"
+Issues = "https://https://github.com/neuraparse/qmann-v2.0/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
