@@ -28,11 +28,11 @@ RUN groupadd -r qmann && useradd -r -g qmann qmann
 WORKDIR /app
 
 # Copy requirements first for better caching
-COPY requirements.txt pyproject.toml ./
+COPY docker-requirements.txt pyproject.toml ./
 
 # Install Python dependencies
 RUN pip install --upgrade pip setuptools wheel && \
-    pip install -r requirements.txt
+    pip install -r docker-requirements.txt
 
 # Development stage
 FROM base as development
@@ -143,7 +143,6 @@ FROM base as ibm-quantum
 RUN pip install \
     qiskit[all] \
     qiskit-ibm-runtime \
-    qiskit-ibm-provider \
     qiskit-optimization \
     qiskit-machine-learning
 
@@ -193,8 +192,8 @@ RUN pip install torch torchvision torchaudio --index-url https://download.pytorc
 
 # Copy and install application
 WORKDIR /app
-COPY requirements.txt pyproject.toml ./
-RUN pip install -r requirements.txt
+COPY docker-requirements.txt pyproject.toml ./
+RUN pip install -r docker-requirements.txt
 
 COPY src/ ./src/
 RUN pip install .
