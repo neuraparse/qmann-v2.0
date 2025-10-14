@@ -47,7 +47,9 @@ class TestPerformanceBenchmarks:
         def prepare_quantum_state():
             # Mock quantum state preparation
             num_qubits = 10
-            state_vector = np.random.random(2**num_qubits) + 1j * np.random.random(2**num_qubits)
+            state_vector = np.random.random(2**num_qubits) + 1j * np.random.random(
+                2**num_qubits
+            )
             state_vector = state_vector / np.linalg.norm(state_vector)
             return state_vector
 
@@ -76,8 +78,12 @@ class TestPerformanceBenchmarks:
 
         def matrix_multiplication():
             # Test matrix operations that are common in quantum computing
-            matrix_a = np.random.random((matrix_size, matrix_size)) + 1j * np.random.random((matrix_size, matrix_size))
-            matrix_b = np.random.random((matrix_size, matrix_size)) + 1j * np.random.random((matrix_size, matrix_size))
+            matrix_a = np.random.random(
+                (matrix_size, matrix_size)
+            ) + 1j * np.random.random((matrix_size, matrix_size))
+            matrix_b = np.random.random(
+                (matrix_size, matrix_size)
+            ) + 1j * np.random.random((matrix_size, matrix_size))
             result = np.dot(matrix_a, matrix_b)
             return result
 
@@ -131,8 +137,12 @@ class TestPerformanceBenchmarks:
         def quantum_memory_retrieval():
             # Mock quantum memory retrieval
             memory_size = 1000
-            query_vector = np.random.random(memory_size) + 1j * np.random.random(memory_size)
-            memory_matrix = np.random.random((memory_size, memory_size)) + 1j * np.random.random((memory_size, memory_size))
+            query_vector = np.random.random(memory_size) + 1j * np.random.random(
+                memory_size
+            )
+            memory_matrix = np.random.random(
+                (memory_size, memory_size)
+            ) + 1j * np.random.random((memory_size, memory_size))
 
             # Simulate memory retrieval operation
             retrieved_memory = np.dot(memory_matrix, query_vector)
