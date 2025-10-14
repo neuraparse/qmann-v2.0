@@ -64,12 +64,14 @@ class TestQMANNIntegration:
 
     def test_quantum_lstm_initialization(self, config):
         """Test QuantumLSTM initialization and basic functionality."""
+        # quantum_qubits + ancilla_qubits must not exceed max_qubits
+        # max_qubits=8, ancilla_qubits=2, so quantum_qubits should be <= 6
         model = QuantumLSTM(
             config=config,
             input_size=10,
             hidden_size=32,
             quantum_memory_size=16,
-            quantum_qubits=8,
+            quantum_qubits=6,
         )
 
         # Test initialization

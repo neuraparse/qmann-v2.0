@@ -70,6 +70,7 @@ class QuantumMemory(QuantumComponent):
                 config=config,
                 memory_size=bank_size,
                 qubit_count=qubit_count,
+                ancilla_qubits=config.quantum.ancilla_qubits,
                 name=f"QMatrix_Bank_{i}",
             )
             self.memory_banks.append(bank)

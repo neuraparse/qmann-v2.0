@@ -57,6 +57,10 @@ class QMatrix(QuantumMemoryInterface):
         self.memory_states = {}  # address -> quantum state
         self.memory_metadata = {}  # address -> classical metadata
 
+        # Backend for quantum execution
+        self.backend = None
+        self.quantum_config = config.quantum
+
         # Quantum registers
         self.memory_register = QuantumRegister(qubit_count, "memory")
         self.ancilla_register = QuantumRegister(ancilla_qubits, "ancilla")
@@ -95,6 +99,17 @@ class QMatrix(QuantumMemoryInterface):
         circuit.add_register(self.classical_register)
 
         return circuit
+
+    def get_backend(self):
+        """Get quantum backend for execution."""
+        if self.backend is None:
+            from ..utils import QuantumBackend
+
+            self.backend = QuantumBackend.get_backend(
+                self.quantum_config.backend_name,
+                use_hardware=self.quantum_config.use_hardware,
+            )
+        return self.backend
 
     def initialize(self) -> None:
         """Initialize the Q-Matrix quantum memory system."""
