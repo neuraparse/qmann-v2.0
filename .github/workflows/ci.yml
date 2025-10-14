@@ -243,8 +243,7 @@ jobs:
         target: production
         push: false
         tags: qmann:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        no-cache: true
 
     - name: Test Docker image
       run: |
