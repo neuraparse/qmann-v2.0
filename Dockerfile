@@ -37,7 +37,10 @@ RUN pip install --upgrade pip setuptools wheel && \
 # Development stage
 FROM base as development
 
-# Install development dependencies
+# Copy source code first (needed for pip install -e)
+COPY . .
+
+# Install the package in editable mode with development dependencies
 RUN pip install -e ".[dev,quantum]"
 
 # Install additional development tools
@@ -47,9 +50,6 @@ RUN pip install \
     ipywidgets \
     plotly \
     dash
-
-# Copy source code
-COPY . .
 
 # Change ownership to qmann user
 RUN chown -R qmann:qmann /app
@@ -90,21 +90,18 @@ CMD ["python", "-m", "qmann.applications.healthcare"]
 # Quantum simulation stage (for CI/CD and testing)
 FROM base as quantum-sim
 
-# Install quantum simulation dependencies
+# Copy source and tests
+COPY src/ ./src/
+COPY tests/ ./tests/
+COPY pyproject.toml ./
+
+# Install the package with quantum dependencies
 RUN pip install -e ".[quantum]" && \
     pip install \
     qiskit-aer \
     qiskit-ibm-runtime \
     cirq \
     pennylane
-
-# Copy source and tests
-COPY src/ ./src/
-COPY tests/ ./tests/
-COPY pyproject.toml ./
-
-# Install package in development mode
-RUN pip install -e .
 
 # Change ownership
 RUN chown -R qmann:qmann /app
@@ -222,14 +219,17 @@ RUN apk add --no-cache \
 WORKDIR /app
 
 # Copy only essential files
-COPY src/qmann/ ./qmann/
+COPY src/ ./src/
 COPY pyproject.toml ./
 
 # Install minimal dependencies
 RUN pip install --no-cache-dir \
     numpy \
     torch \
-    qiskit-terra
+    qiskit
+
+# Install the package
+RUN pip install --no-cache-dir .
 
 # Create user
 RUN addgroup -S qmann && adduser -S qmann -G qmann
