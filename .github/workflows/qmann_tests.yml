@@ -13,24 +13,25 @@ jobs:
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     strategy:
       matrix:
         python-version: ['3.10', '3.11', '3.12']
-    
+
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
         cache: 'pip'
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -e ".[test]"
-    
+
     - name: Run unit tests
       run: |
         pytest tests/ -v --cov=src/qmann --cov-report=xml -m "not hardware and not slow"
@@ -45,6 +46,7 @@ jobs:
   simulator-benchmarks:
     name: Simulator Benchmarks
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - uses: actions/checkout@v4
@@ -68,6 +70,7 @@ jobs:
   error-mitigation-tests:
     name: Error Mitigation Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - uses: actions/checkout@v4
@@ -91,6 +94,7 @@ jobs:
   application-tests:
     name: Application Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - uses: actions/checkout@v4
@@ -114,6 +118,7 @@ jobs:
   ablation-studies:
     name: Ablation Studies
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - uses: actions/checkout@v4
@@ -137,6 +142,7 @@ jobs:
   continual-learning-tests:
     name: Continual Learning Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - uses: actions/checkout@v4
@@ -160,6 +166,7 @@ jobs:
   integration-tests:
     name: Integration Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - uses: actions/checkout@v4
@@ -183,8 +190,9 @@ jobs:
   hardware-tests:
     name: Hardware Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    
+
     steps:
     - uses: actions/checkout@v4
     
@@ -209,6 +217,7 @@ jobs:
   code-quality:
     name: Code Quality
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - uses: actions/checkout@v4
@@ -240,6 +249,7 @@ jobs:
   security-scan:
     name: Security Scan
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
     - uses: actions/checkout@v4
@@ -266,11 +276,12 @@ jobs:
   test-report:
     name: Test Report
     runs-on: ubuntu-latest
-    needs: [unit-tests, simulator-benchmarks, error-mitigation-tests, 
-            application-tests, ablation-studies, continual-learning-tests, 
+    timeout-minutes: 5
+    needs: [unit-tests, simulator-benchmarks, error-mitigation-tests,
+            application-tests, ablation-studies, continual-learning-tests,
             integration-tests]
     if: always()
-    
+
     steps:
     - name: Check test results
       run: |
