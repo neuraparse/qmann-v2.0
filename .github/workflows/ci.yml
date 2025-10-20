@@ -73,8 +73,10 @@ jobs:
         mypy src/qmann/ || true
 
     - name: Run all tests
+      timeout-minutes: 30
       run: |
-        pytest tests/ -v --cov=src/qmann --cov-report=xml --cov-report=term-missing --tb=short
+        pip install pytest-timeout
+        pytest tests/ -v --cov=src/qmann --cov-report=xml --cov-report=term-missing --tb=short --timeout=300
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
