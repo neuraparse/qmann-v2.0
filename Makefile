@@ -74,6 +74,64 @@ test-coverage: ## Run tests with coverage report
 test-performance: ## Run performance benchmarks
 	$(PYTHON) -m pytest $(TEST_DIR)/test_performance/ -v --benchmark-only
 
+# Test logging targets (with automatic result logging)
+test-logged: ## Run all tests with automatic logging (timestamp, version, test number)
+	$(PYTHON) scripts/run_tests_with_logging.py
+
+test-simulators-logged: ## Run simulator tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py simulators
+
+test-benchmarks-logged: ## Run benchmark tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py benchmarks
+
+test-applications-logged: ## Run application tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py applications
+
+test-error-mitigation-logged: ## Run error mitigation tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py error_mitigation
+
+test-ablation-logged: ## Run ablation tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py ablation
+
+test-continual-logged: ## Run continual learning tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py continual
+
+test-integration-logged: ## Run integration tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py integration
+
+test-results-view: ## View latest test results
+	@ls -lh test_results/ | tail -10
+	@echo "\nLatest results:"
+	@ls -t test_results/*.txt 2>/dev/null | head -1 | xargs cat | head -50
+
+test-report-summary: ## Generate summary test report
+	$(PYTHON) scripts/generate_test_report.py --latest --format summary
+
+test-report-detailed: ## Generate detailed test report
+	$(PYTHON) scripts/generate_test_report.py --latest --format detailed
+
+test-report-performance: ## Generate performance analysis report
+	$(PYTHON) scripts/generate_test_report.py --latest --format performance
+
+test-report-all: ## Generate all test reports
+	$(PYTHON) scripts/generate_test_report.py --latest --format all
+
+# New comprehensive tests (beyond paper)
+test-hardware-logged: ## Run hardware variability tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py hardware
+
+test-scalability-logged: ## Run scalability ceiling tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py scalability
+
+test-production-logged: ## Run production data robustness tests with logging
+	$(PYTHON) scripts/run_tests_with_logging.py production
+
+test-comprehensive: ## Run all tests including new comprehensive tests
+	$(PYTHON) scripts/run_tests_with_logging.py
+
+test-critical: ## Run critical tests only (high priority)
+	$(PYTEST) tests/ -v -m "hardware or scalability or production" --tb=short
+
 # Code quality targets
 lint: ## Run linting checks
 	$(FLAKE8) $(SRC_DIR) $(TEST_DIR) $(EXAMPLES_DIR)

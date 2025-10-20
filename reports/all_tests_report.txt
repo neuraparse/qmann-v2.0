@@ -1,0 +1,324 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.2, pytest-8.4.1, pluggy-1.5.0 -- /opt/anaconda3/bin/python
+cachedir: .pytest_cache
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/bayrameker/Downloads/qmann-v2.0
+configfile: pyproject.toml
+plugins: docker-3.1.2, langsmith-0.3.30, anyio-4.9.0, xdist-3.8.0, benchmark-5.1.0, asyncio-1.0.0, cov-7.0.0
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 147 items
+
+tests/ablation/test_components.py::TestAblation::test_quantum_memory_contribution FAILED [  0%]
+tests/ablation/test_components.py::TestAblation::test_error_mitigation_contribution FAILED [  1%]
+tests/ablation/test_components.py::TestAblation::test_hybrid_training_contribution FAILED [  2%]
+tests/ablation/test_components.py::TestAblation::test_full_system_synergy FAILED [  2%]
+tests/ablation/test_components.py::TestAblation::test_cumulative_improvements PASSED [  3%]
+tests/ablation/test_components.py::TestComponentEfficiency::test_quantum_memory_efficiency PASSED [  4%]
+tests/ablation/test_components.py::TestComponentEfficiency::test_error_mitigation_overhead PASSED [  4%]
+tests/ablation/test_components.py::TestComponentEfficiency::test_inference_speedup PASSED [  5%]
+tests/applications/test_industry.py::TestIndustryApplications::test_finance_portfolio_optimization PASSED [  6%]
+tests/applications/test_industry.py::TestIndustryApplications::test_healthcare_prediction PASSED [  6%]
+tests/applications/test_industry.py::TestIndustryApplications::test_iot_predictive_maintenance PASSED [  7%]
+tests/applications/test_industry.py::TestApplicationScalability::test_portfolio_size_scaling PASSED [  8%]
+tests/applications/test_industry.py::TestApplicationScalability::test_patient_dataset_scaling PASSED [  8%]
+tests/applications/test_industry.py::TestApplicationScalability::test_machine_fleet_scaling PASSED [  9%]
+tests/benchmarks/test_energy_benchmarks.py::TestEnergy::test_training_energy_reduction FAILED [ 10%]
+tests/benchmarks/test_energy_benchmarks.py::TestEnergy::test_power_consumption_profile PASSED [ 10%]
+tests/benchmarks/test_energy_benchmarks.py::TestEnergy::test_energy_scaling_with_problem_size FAILED [ 11%]
+tests/benchmarks/test_energy_benchmarks.py::TestPowerProfile::test_peak_power_during_training PASSED [ 12%]
+tests/benchmarks/test_energy_benchmarks.py::TestPowerProfile::test_idle_power_consumption PASSED [ 12%]
+tests/benchmarks/test_energy_benchmarks.py::TestPowerProfile::test_energy_per_epoch PASSED [ 13%]
+tests/benchmarks/test_energy_benchmarks.py::TestPowerProfile::test_carbon_footprint_reduction PASSED [ 14%]
+tests/benchmarks/test_memory_benchmarks.py::TestMemoryScaling::test_grover_search_scaling FAILED [ 14%]
+tests/benchmarks/test_memory_benchmarks.py::TestMemoryScaling::test_error_rate_threshold PASSED [ 15%]
+tests/benchmarks/test_memory_benchmarks.py::TestMemoryScaling::test_memory_scaling_across_sizes PASSED [ 16%]
+tests/benchmarks/test_memory_benchmarks.py::TestMemoryScaling::test_quantum_advantage_threshold FAILED [ 17%]
+tests/benchmarks/test_memory_benchmarks.py::TestMemoryComplexityAnalysis::test_space_complexity_classical_vs_quantum PASSED [ 17%]
+tests/benchmarks/test_memory_benchmarks.py::TestMemoryComplexityAnalysis::test_retrieval_time_complexity PASSED [ 18%]
+tests/benchmarks/test_training_benchmarks.py::TestConvergence::test_accuracy_improvements FAILED [ 19%]
+tests/benchmarks/test_training_benchmarks.py::TestConvergence::test_convergence_speed FAILED [ 19%]
+tests/benchmarks/test_training_benchmarks.py::TestConvergence::test_task_specific_convergence FAILED [ 20%]
+tests/benchmarks/test_training_benchmarks.py::TestTrainingDynamics::test_learning_curve_smoothness PASSED [ 21%]
+tests/benchmarks/test_training_benchmarks.py::TestTrainingDynamics::test_early_stopping_criterion FAILED [ 21%]
+tests/benchmarks/test_training_benchmarks.py::TestTrainingDynamics::test_batch_size_effect PASSED [ 22%]
+tests/continual/test_forgetting.py::TestContinualLearning::test_retention_rates FAILED [ 23%]
+tests/continual/test_forgetting.py::TestContinualLearning::test_task_specific_retention PASSED [ 23%]
+tests/continual/test_forgetting.py::TestContinualLearning::test_forward_transfer PASSED [ 24%]
+tests/continual/test_forgetting.py::TestContinualLearning::test_backward_transfer PASSED [ 25%]
+tests/continual/test_forgetting.py::TestCatastrophicForgettingAnalysis::test_forgetting_curve PASSED [ 25%]
+tests/continual/test_forgetting.py::TestCatastrophicForgettingAnalysis::test_memory_consolidation PASSED [ 26%]
+tests/continual/test_forgetting.py::TestCatastrophicForgettingAnalysis::test_task_similarity_effect PASSED [ 27%]
+tests/continual/test_forgetting.py::TestCatastrophicForgettingAnalysis::test_replay_buffer_effectiveness PASSED [ 27%]
+tests/error_mitigation/test_mitigation.py::TestErrorMitigation::test_fidelity_improvements FAILED [ 28%]
+tests/error_mitigation/test_mitigation.py::TestErrorMitigation::test_individual_technique_fidelity FAILED [ 29%]
+tests/error_mitigation/test_mitigation.py::TestErrorMitigation::test_mitigation_overhead PASSED [ 29%]
+tests/error_mitigation/test_mitigation.py::TestErrorMitigation::test_fidelity_vs_overhead_tradeoff PASSED [ 30%]
+tests/error_mitigation/test_mitigation.py::TestAdvancedMitigation::test_zne_scaling_factors PASSED [ 31%]
+tests/error_mitigation/test_mitigation.py::TestAdvancedMitigation::test_pec_quasi_probability_distribution PASSED [ 31%]
+tests/error_mitigation/test_mitigation.py::TestAdvancedMitigation::test_virtual_distillation_magic_state PASSED [ 32%]
+tests/error_mitigation/test_mitigation.py::TestAdvancedMitigation::test_combined_mitigation_synergy PASSED [ 33%]
+tests/integration/test_end_to_end.py::TestEndToEnd::test_complete_workflow FAILED [ 34%]
+tests/integration/test_end_to_end.py::TestEndToEnd::test_multi_backend_compatibility PASSED [ 34%]
+tests/integration/test_end_to_end.py::TestEndToEnd::test_inference_pipeline PASSED [ 35%]
+tests/integration/test_end_to_end.py::TestRobustness::test_noise_robustness PASSED [ 36%]
+tests/integration/test_end_to_end.py::TestRobustness::test_error_recovery PASSED [ 36%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_quantum_memory_allocation_benchmark PASSED [ 37%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_quantum_circuit_compilation_benchmark PASSED [ 38%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_quantum_state_preparation_benchmark PASSED [ 38%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_quantum_measurement_benchmark PASSED [ 39%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_matrix_operations_benchmark[100] PASSED [ 40%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_matrix_operations_benchmark[500] PASSED [ 40%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_matrix_operations_benchmark[1000] PASSED [ 41%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_quantum_error_correction_benchmark PASSED [ 42%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_quantum_neural_network_forward_pass_benchmark PASSED [ 42%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_quantum_memory_retrieval_benchmark PASSED [ 43%]
+tests/performance/test_benchmarks.py::TestPerformanceBenchmarks::test_quantum_optimization_benchmark PASSED [ 44%]
+tests/quantum/test_quantum_simulator.py::TestQuantumSimulator::test_basic_circuit_creation PASSED [ 44%]
+tests/quantum/test_quantum_simulator.py::TestQuantumSimulator::test_simulator_execution PASSED [ 45%]
+tests/quantum/test_quantum_simulator.py::TestQuantumSimulator::test_circuit_scaling[1] PASSED [ 46%]
+tests/quantum/test_quantum_simulator.py::TestQuantumSimulator::test_circuit_scaling[2] PASSED [ 46%]
+tests/quantum/test_quantum_simulator.py::TestQuantumSimulator::test_circuit_scaling[3] PASSED [ 47%]
+tests/quantum/test_quantum_simulator.py::TestQuantumSimulator::test_circuit_scaling[4] PASSED [ 48%]
+tests/quantum/test_quantum_simulator.py::TestQuantumSimulator::test_quantum_memory_simulation PASSED [ 48%]
+tests/quantum/test_quantum_simulator.py::TestQuantumHardware::test_hardware_execution SKIPPED [ 49%]
+tests/quantum/test_quantum_simulator.py::TestQuantumHardware::test_noise_characterization SKIPPED [ 50%]
+tests/quantum/test_quantum_simulator.py::TestQuantumMock::test_quantum_mock_functionality SKIPPED [ 51%]
+tests/quantum/test_quantum_simulator.py::TestQuantumMock::test_quantum_simulation_mock SKIPPED [ 51%]
+tests/simulators/test_quantum_backend.py::test_ideal_simulator_creation PASSED [ 52%]
+tests/simulators/test_quantum_backend.py::test_noisy_simulator_creation PASSED [ 53%]
+tests/simulators/test_quantum_backend.py::test_noise_profile_info PASSED [ 53%]
+tests/simulators/test_quantum_backend.py::test_simulator_reset PASSED    [ 54%]
+tests/simulators/test_quantum_backend.py::test_measurement PASSED        [ 55%]
+tests/test_2025_features.py::test_qiskit_import PASSED                   [ 55%]
+tests/test_2025_features.py::test_advanced_techniques PASSED             [ 56%]
+tests/test_2025_features.py::test_quantum_attention_demo PASSED          [ 57%]
+tests/test_2025_features.py::test_adaptive_ansatz_demo PASSED            [ 57%]
+tests/test_applications.py::test_application_imports PASSED              [ 58%]
+tests/test_applications.py::test_industrial_maintenance SKIPPED (Abs...) [ 59%]
+tests/test_applications.py::test_autonomous_coordination SKIPPED (Ab...) [ 59%]
+tests/test_applications.py::test_healthcare_predictor SKIPPED (Abstr...) [ 60%]
+tests/test_drug_discovery_applications.py::TestQuantumMolecularPropertyPredictor::test_property_predictor_initialization PASSED [ 61%]
+tests/test_drug_discovery_applications.py::TestQuantumMolecularPropertyPredictor::test_property_prediction PASSED [ 61%]
+tests/test_drug_discovery_applications.py::TestQuantumMolecularPropertyPredictor::test_drug_likeness_calculation PASSED [ 62%]
+tests/test_drug_discovery_applications.py::TestQuantumDrugTargetBindingPredictor::test_binding_predictor_initialization PASSED [ 63%]
+tests/test_drug_discovery_applications.py::TestQuantumDrugTargetBindingPredictor::test_binding_affinity_prediction PASSED [ 63%]
+tests/test_drug_discovery_applications.py::TestQuantumDrugTargetBindingPredictor::test_interaction_strength_analysis PASSED [ 64%]
+tests/test_drug_discovery_applications.py::TestQuantumMolecularGenerator::test_molecular_generator_initialization PASSED [ 65%]
+tests/test_drug_discovery_applications.py::TestQuantumMolecularGenerator::test_molecule_generation PASSED [ 65%]
+tests/test_drug_discovery_applications.py::TestQuantumADMETPredictor::test_admet_predictor_initialization PASSED [ 66%]
+tests/test_drug_discovery_applications.py::TestQuantumADMETPredictor::test_admet_prediction PASSED [ 67%]
+tests/test_drug_discovery_applications.py::TestQuantumADMETPredictor::test_safety_score_calculation PASSED [ 68%]
+tests/test_drug_discovery_applications.py::TestQuantumADMETPredictor::test_toxicity_flag_identification PASSED [ 68%]
+tests/test_drug_discovery_applications.py::TestDrugDiscoveryIntegration::test_end_to_end_drug_screening PASSED [ 69%]
+tests/test_drug_discovery_applications.py::TestDrugDiscoveryIntegration::test_molecule_generation_and_evaluation PASSED [ 70%]
+tests/test_finance_applications.py::TestQuantumPortfolioOptimizer::test_portfolio_optimizer_initialization PASSED [ 70%]
+tests/test_finance_applications.py::TestQuantumPortfolioOptimizer::test_portfolio_optimization PASSED [ 71%]
+tests/test_finance_applications.py::TestQuantumPortfolioOptimizer::test_sharpe_ratio_calculation PASSED [ 72%]
+tests/test_finance_applications.py::TestQuantumFraudDetector::test_fraud_detector_initialization PASSED [ 72%]
+tests/test_finance_applications.py::TestQuantumFraudDetector::test_fraud_detection PASSED [ 73%]
+tests/test_finance_applications.py::TestQuantumMarketPredictor::test_market_predictor_initialization PASSED [ 74%]
+tests/test_finance_applications.py::TestQuantumMarketPredictor::test_market_prediction PASSED [ 74%]
+tests/test_finance_applications.py::TestQuantumMarketPredictor::test_confidence_intervals PASSED [ 75%]
+tests/test_finance_applications.py::TestFinancialIntegration::test_end_to_end_portfolio_workflow PASSED [ 76%]
+tests/test_finance_applications.py::TestFinancialIntegration::test_fraud_detection_accuracy PASSED [ 76%]
+tests/test_finance_applications.py::TestFinancialIntegration::test_market_prediction_consistency PASSED [ 77%]
+tests/test_import.py::test_basic_imports PASSED                          [ 78%]
+tests/test_import.py::test_optional_imports PASSED                       [ 78%]
+tests/test_import.py::test_config_functionality PASSED                   [ 79%]
+tests/test_materials_science_applications.py::TestQuantumMaterialPropertyPredictor::test_property_predictor_initialization PASSED [ 80%]
+tests/test_materials_science_applications.py::TestQuantumMaterialPropertyPredictor::test_property_prediction PASSED [ 80%]
+tests/test_materials_science_applications.py::TestQuantumMaterialPropertyPredictor::test_material_quality_calculation PASSED [ 81%]
+tests/test_materials_science_applications.py::TestQuantumMaterialPropertyPredictor::test_application_determination PASSED [ 82%]
+tests/test_materials_science_applications.py::TestQuantumCrystalStructureOptimizer::test_structure_optimizer_initialization PASSED [ 82%]
+tests/test_materials_science_applications.py::TestQuantumCrystalStructureOptimizer::test_structure_optimization PASSED [ 83%]
+tests/test_materials_science_applications.py::TestQuantumCrystalStructureOptimizer::test_structure_to_quantum_params_conversion PASSED [ 84%]
+tests/test_materials_science_applications.py::TestQuantumCrystalStructureOptimizer::test_quantum_params_to_structure_conversion PASSED [ 85%]
+tests/test_materials_science_applications.py::TestQuantumBatteryMaterialDesigner::test_battery_designer_initialization PASSED [ 85%]
+tests/test_materials_science_applications.py::TestQuantumBatteryMaterialDesigner::test_battery_material_design PASSED [ 86%]
+tests/test_materials_science_applications.py::TestQuantumBatteryMaterialDesigner::test_application_suitability_calculation PASSED [ 87%]
+tests/test_materials_science_applications.py::TestQuantumBatteryMaterialDesigner::test_production_cost_estimation PASSED [ 87%]
+tests/test_materials_science_applications.py::TestMaterialsScienceIntegration::test_end_to_end_material_discovery PASSED [ 88%]
+tests/test_materials_science_applications.py::TestMaterialsScienceIntegration::test_battery_material_screening PASSED [ 89%]
+tests/test_materials_science_applications.py::TestMaterialsScienceIntegration::test_multi_application_material_design PASSED [ 89%]
+tests/test_materials_science_applications.py::TestMaterialsScienceIntegration::test_structure_optimization_convergence PASSED [ 90%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_quantum_lstm_initialization PASSED [ 91%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_hybrid_training_workflow PASSED [ 91%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_quantum_memory_operations PASSED [ 92%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_classical_quantum_interface PASSED [ 93%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_healthcare_application PASSED [ 93%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_error_mitigation_integration PASSED [ 94%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_memory_consolidation PASSED [ 95%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_model_persistence PASSED [ 95%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_performance_benchmarking PASSED [ 96%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_edge_cases_and_robustness PASSED [ 97%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_advanced_training_protocols PASSED [ 97%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_comprehensive_benchmarking SKIPPED [ 98%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_visualization_capabilities PASSED [ 99%]
+tests/test_qmann_integration.py::TestQMANNIntegration::test_end_to_end_workflow PASSED [100%]
+
+=================================== FAILURES ===================================
+/Users/bayrameker/Downloads/qmann-v2.0/tests/ablation/test_components.py:117: AssertionError: Quantum memory improvement 6.4pp outside [6.5, 8.0]
+/Users/bayrameker/Downloads/qmann-v2.0/tests/ablation/test_components.py:140: AssertionError: Error mitigation improvement 5.6pp outside [3.5, 5.0]
+/Users/bayrameker/Downloads/qmann-v2.0/tests/ablation/test_components.py:165: AssertionError: Hybrid training improvement 3.3pp outside [1.5, 3.0]
+/Users/bayrameker/Downloads/qmann-v2.0/tests/ablation/test_components.py:185: AssertionError: Full QMANN accuracy 85.3% < 86.5% minimum
+/Users/bayrameker/Downloads/qmann-v2.0/tests/benchmarks/test_energy_benchmarks.py:95: AssertionError: Classical energy 0.00 kWh outside expected range
+/Users/bayrameker/Downloads/qmann-v2.0/tests/benchmarks/test_energy_benchmarks.py:169: AssertionError: Energy scaling should be linear
+/Users/bayrameker/Downloads/qmann-v2.0/tests/benchmarks/test_memory_benchmarks.py:116: AssertionError: Speedup 0.57x < expected 4.00x for N=16
+/Users/bayrameker/Downloads/qmann-v2.0/tests/benchmarks/test_memory_benchmarks.py:169: AssertionError: No quantum advantage at N=64 (speedup=0.95x)
+/Users/bayrameker/Downloads/qmann-v2.0/tests/benchmarks/test_training_benchmarks.py:136: AssertionError: Task SCAN-Jump: improvement -3.7% < 12% minimum
+/Users/bayrameker/Downloads/qmann-v2.0/tests/benchmarks/test_training_benchmarks.py:168: AssertionError: Average speedup 0.48x < 1.8x minimum
+/Users/bayrameker/Downloads/qmann-v2.0/tests/benchmarks/test_training_benchmarks.py:189: AssertionError: SCAN-Jump: Final accuracy 83.8% < target 87.3%
+/Users/bayrameker/Downloads/qmann-v2.0/tests/benchmarks/test_training_benchmarks.py:233: AssertionError: Early stopping not triggered
+/Users/bayrameker/Downloads/qmann-v2.0/tests/continual/test_forgetting.py:116: AssertionError: Classical retention 100.0% should be < 50%
+/Users/bayrameker/Downloads/qmann-v2.0/tests/error_mitigation/test_mitigation.py:133: AssertionError: Combined fidelity 0.923 < 0.94 minimum
+/Users/bayrameker/Downloads/qmann-v2.0/tests/error_mitigation/test_mitigation.py:151: AssertionError: zne fidelity 0.840 outside range [0.85, 0.87]
+/Users/bayrameker/Downloads/qmann-v2.0/tests/integration/test_end_to_end.py:123: AssertionError: Training accuracy 79.5% < 85%
+=============================== warnings summary ===============================
+tests/integration/test_end_to_end.py:188
+  /Users/bayrameker/Downloads/qmann-v2.0/tests/integration/test_end_to_end.py:188: PytestCollectionWarning: cannot collect test class 'TestHardwareFidelityMonitoring' because it has a __init__ constructor (from: tests/integration/test_end_to_end.py)
+    class TestHardwareFidelityMonitoring:
+
+src/qmann/utils/multi_provider_backend.py:39
+  /Users/bayrameker/Downloads/qmann-v2.0/tests/../src/qmann/utils/multi_provider_backend.py:39: UserWarning: IonQ provider not available. Install with: pip install qiskit-ionq
+    warnings.warn("IonQ provider not available. Install with: pip install qiskit-ionq")
+
+src/qmann/utils/multi_provider_backend.py:48
+  /Users/bayrameker/Downloads/qmann-v2.0/tests/../src/qmann/utils/multi_provider_backend.py:48: UserWarning: AWS Braket provider not available. Install with: pip install qiskit-braket-provider
+    warnings.warn(
+
+src/qmann/utils/multi_provider_backend.py:59
+  /Users/bayrameker/Downloads/qmann-v2.0/tests/../src/qmann/utils/multi_provider_backend.py:59: UserWarning: Rigetti provider not available. Install with: pip install qiskit-rigetti
+    warnings.warn(
+
+src/qmann/utils/multi_provider_backend.py:39
+  /Users/bayrameker/Downloads/qmann-v2.0/src/qmann/utils/multi_provider_backend.py:39: UserWarning: IonQ provider not available. Install with: pip install qiskit-ionq
+    warnings.warn("IonQ provider not available. Install with: pip install qiskit-ionq")
+
+src/qmann/utils/multi_provider_backend.py:48
+  /Users/bayrameker/Downloads/qmann-v2.0/src/qmann/utils/multi_provider_backend.py:48: UserWarning: AWS Braket provider not available. Install with: pip install qiskit-braket-provider
+    warnings.warn(
+
+src/qmann/utils/multi_provider_backend.py:59
+  /Users/bayrameker/Downloads/qmann-v2.0/src/qmann/utils/multi_provider_backend.py:59: UserWarning: Rigetti provider not available. Install with: pip install qiskit-rigetti
+    warnings.warn(
+
+tests/test_2025_features.py::test_qiskit_import
+  /opt/anaconda3/lib/python3.12/site-packages/_pytest/python.py:161: PytestReturnNotNoneWarning: Test functions should return None, but tests/test_2025_features.py::test_qiskit_import returned <class 'bool'>.
+  Did you mean to use `assert` instead of `return`?
+  See https://docs.pytest.org/en/stable/how-to/assert.html#return-not-none for more information.
+    warnings.warn(
+
+tests/test_2025_features.py::test_advanced_techniques
+  /opt/anaconda3/lib/python3.12/site-packages/_pytest/python.py:161: PytestReturnNotNoneWarning: Test functions should return None, but tests/test_2025_features.py::test_advanced_techniques returned <class 'bool'>.
+  Did you mean to use `assert` instead of `return`?
+  See https://docs.pytest.org/en/stable/how-to/assert.html#return-not-none for more information.
+    warnings.warn(
+
+tests/test_2025_features.py::test_quantum_attention_demo
+  /opt/anaconda3/lib/python3.12/site-packages/_pytest/python.py:161: PytestReturnNotNoneWarning: Test functions should return None, but tests/test_2025_features.py::test_quantum_attention_demo returned <class 'bool'>.
+  Did you mean to use `assert` instead of `return`?
+  See https://docs.pytest.org/en/stable/how-to/assert.html#return-not-none for more information.
+    warnings.warn(
+
+tests/test_2025_features.py::test_adaptive_ansatz_demo
+  /opt/anaconda3/lib/python3.12/site-packages/_pytest/python.py:161: PytestReturnNotNoneWarning: Test functions should return None, but tests/test_2025_features.py::test_adaptive_ansatz_demo returned <class 'bool'>.
+  Did you mean to use `assert` instead of `return`?
+  See https://docs.pytest.org/en/stable/how-to/assert.html#return-not-none for more information.
+    warnings.warn(
+
+tests/test_qmann_integration.py::TestQMANNIntegration::test_edge_cases_and_robustness
+  /Users/bayrameker/Downloads/qmann-v2.0/src/qmann/quantum/qmatrix.py:198: RuntimeWarning: invalid value encountered in divide
+    normalized_data = classical_data / np.linalg.norm(classical_data)
+
+tests/test_qmann_integration.py::TestQMANNIntegration::test_visualization_capabilities
+  /Users/bayrameker/Downloads/qmann-v2.0/src/qmann/utils/visualization.py:154: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+    plt.show()
+
+tests/test_qmann_integration.py::TestQMANNIntegration::test_visualization_capabilities
+  /Users/bayrameker/Downloads/qmann-v2.0/src/qmann/utils/visualization.py:288: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+    plt.show()
+
+tests/test_qmann_integration.py::TestQMANNIntegration::test_visualization_capabilities
+  /Users/bayrameker/Downloads/qmann-v2.0/src/qmann/utils/visualization.py:372: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+    plt.show()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                            Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------------------
+src/qmann/__init__.py                              72     43    40%   58, 65-67, 76, 81-82, 90-91, 98-99, 106, 111, 116-122, 127-162
+src/qmann/applications/__init__.py                  7      0   100%
+src/qmann/applications/autonomous.py              298    243    18%   68-126, 130-135, 154-196, 215-293, 312-368, 379-414, 433-471, 477-512, 518-529, 538-544, 551-563, 577-586, 592-617, 621-634, 638-647, 653-683, 689-704, 711-727, 734-748, 755-769, 773-788
+src/qmann/applications/drug_discovery.py          128      0   100%
+src/qmann/applications/finance.py                 112      2    98%   215, 332
+src/qmann/applications/healthcare.py              154     50    68%   102, 106, 112, 119-120, 193, 209-210, 263-297, 394-435, 439-441, 455-461, 465-476, 480-492
+src/qmann/applications/industrial.py              196    156    20%   63-112, 121-126, 145-211, 226-293, 312-405, 410-432, 439-449, 459-486, 494-515, 519-529, 533-548
+src/qmann/applications/materials_science.py       165      6    96%   189, 195, 201, 277-278, 307
+src/qmann/classical/__init__.py                     2      0   100%
+src/qmann/classical/lstm.py                       143     54    62%   135, 222-223, 227, 239-257, 274-306, 326-353, 357-359, 375-402, 406-408, 412
+src/qmann/core/__init__.py                          5      0   100%
+src/qmann/core/base.py                            134     43    68%   73, 87, 91, 95-97, 101-108, 112-116, 120-121, 126, 151, 155-162, 166-181, 209, 213-215, 222, 261-262, 266-267, 271-272, 279
+src/qmann/core/config.py                          152     35    77%   170, 173, 177, 180, 184, 198-200, 205-207, 251, 263-272, 277-279, 284, 289-308
+src/qmann/core/exceptions.py                       55     15    73%   19, 63-65, 98-99, 111-113, 120-121, 128-129, 136-137
+src/qmann/core/memory.py                          119     31    74%   46, 60, 71, 81, 119-121, 135, 139-142, 173, 186, 199, 204, 208-211, 254, 273-277, 281-287, 299
+src/qmann/hybrid/__init__.py                        4      0   100%
+src/qmann/hybrid/quantum_lstm.py                  197     35    82%   128, 132, 149-150, 181, 300, 320, 337, 371-381, 386-396, 401-411, 469-474
+src/qmann/hybrid/trainer.py                       213     77    64%   87-95, 159, 171-172, 176, 182-183, 241, 254, 278-296, 303-311, 332-336, 358-364, 373-374, 407-425, 429-452, 458-479
+src/qmann/hybrid/training_protocols.py            256    151    41%   60-103, 113-119, 165-194, 213-289, 294-297, 347-372, 384-404, 421-438, 475-510, 520-534, 604-612
+src/qmann/quantum/__init__.py                       7      0   100%
+src/qmann/quantum/advanced_techniques_2025.py     362     60    83%   264-271, 284, 289-298, 338-354, 360-378, 383-395, 598, 626-646, 695, 697, 766
+src/qmann/quantum/circuits.py                     194    156    20%   37-44, 48-55, 72-120, 124-153, 157-179, 185-195, 201, 219-232, 236-244, 249-258, 262-265, 277-305, 310-312, 316-322, 326, 344-352, 358-359, 373-387, 392-395, 400, 412-417, 422-430, 435, 440, 444
+src/qmann/quantum/error_mitigation_2025.py        244    165    32%   44-49, 120-124, 130-145, 152-168, 175-189, 201-218, 223-239, 255-260, 266-270, 280-293, 297-319, 326-345, 349-374, 380-394, 401-407, 418-419, 429, 441-454, 461-473, 484-490, 500, 511, 520-535, 539-552, 556-563
+src/qmann/quantum/memory.py                       241     18    93%   171-172, 282, 360-361, 366, 421-422, 481-482, 533-538, 543, 548, 554
+src/qmann/quantum/qmatrix.py                      199     45    77%   52, 132-133, 168, 175-178, 216-229, 251-254, 325, 358-359, 404, 432-433, 446-461, 465-483, 487-497, 517
+src/qmann/quantum/quantum_transformer_2025.py     146      3    98%   195, 201, 270
+src/qmann/utils/__init__.py                         6      0   100%
+src/qmann/utils/backend.py                        145     93    36%   52-97, 125, 132, 143, 154-182, 189, 191, 193, 206-207, 211-253, 268-301, 328-376, 383, 387-389
+src/qmann/utils/benchmarks.py                     296    198    33%   76, 80-145, 198, 201, 223-243, 299, 302-369, 409-436, 443-482, 489-516, 521-535, 544-563, 572-591, 599-680, 684-691, 695-732
+src/qmann/utils/error_mitigation.py               384    273    29%   44-48, 144, 159-161, 165-167, 171-173, 190-193, 199-213, 236-238, 244-259, 265-278, 284-302, 310, 316-329, 335-347, 354-363, 376-394, 399-403, 407-428, 435, 457-459, 472-474, 495-520, 532-556, 560-569, 574-586, 592-599, 606-607, 614-616, 623-631, 646-662, 686-711, 721-746, 752-784, 794-829, 839-871, 881-912, 920-937
+src/qmann/utils/multi_provider_backend.py         297    215    28%   36, 45, 56, 109, 140-163, 175-199, 203-261, 265-294, 298-335, 339-368, 372-401, 405-432, 436, 485-522, 526-548, 552-555, 576-611, 630-660, 664, 689-692, 716-726
+src/qmann/utils/security.py                        80     80     0%   6-269
+src/qmann/utils/visualization.py                  280    138    51%   24-25, 85, 107-112, 151-152, 156-158, 193-194, 285-286, 290-292, 306-307, 369-370, 374-376, 392-412, 430-481, 497-607, 625-693, 703-706, 712-716
+-----------------------------------------------------------------------------
+TOTAL                                            5293   2385    55%
+Coverage HTML written to dir htmlcov
+
+--------------------------------------------------------------------------------------------------------------- benchmark: 11 tests ---------------------------------------------------------------------------------------------------------------
+Name (time in us)                                              Min                    Max                   Mean                StdDev                 Median                   IQR            Outliers           OPS            Rounds  Iterations
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+test_quantum_error_correction_benchmark                     2.3750 (1.0)         144.0420 (2.46)          2.9043 (1.0)          2.2386 (1.43)          2.5420 (1.0)          0.1660 (2.00)    1026;3766  344,313.3680 (1.0)       27398           1
+test_quantum_measurement_benchmark                         11.4170 (4.81)         58.5000 (1.0)          12.1128 (4.17)         1.5678 (1.0)          11.7910 (4.64)         0.3330 (4.01)       79;163   82,557.4386 (0.24)       1521           1
+test_quantum_state_preparation_benchmark                   12.5830 (5.30)         86.4170 (1.48)         13.8305 (4.76)         3.2485 (2.07)         12.9170 (5.08)         0.2490 (3.00)     480;1181   72,304.1749 (0.21)       6570           1
+test_quantum_neural_network_forward_pass_benchmark         14.0000 (5.89)        360.1250 (6.16)         14.5790 (5.02)         5.6334 (3.59)         14.2500 (5.61)         0.0830 (1.0)        21;464   68,591.9363 (0.20)       3935           1
+test_quantum_optimization_benchmark                        63.2910 (26.65)     1,073.0840 (18.34)        77.6253 (26.73)       39.0526 (24.91)        68.9580 (27.13)        7.3648 (88.73)     454;548   12,882.3911 (0.04)       7163           1
+test_quantum_memory_allocation_benchmark                  104.5000 (44.00)       972.7500 (16.63)       115.3393 (39.71)        9.2066 (5.87)        114.5830 (45.08)       10.5420 (127.01)   3865;636    8,670.0694 (0.03)      29377           1
+test_matrix_operations_benchmark[100]                     206.7500 (87.05)     6,499.0000 (111.09)      552.5645 (190.26)     658.5011 (420.02)      338.3330 (133.10)     273.7705 (>1000.0)     50;57    1,809.7434 (0.01)        529           1
+test_quantum_circuit_compilation_benchmark              1,024.8750 (431.53)    1,382.1250 (23.63)     1,267.4318 (436.39)      34.0181 (21.70)     1,269.2080 (499.29)      13.4995 (162.64)      49;58      788.9971 (0.00)        781           1
+test_quantum_memory_retrieval_benchmark                 8,790.2500 (>1000.0)  23,478.1250 (401.34)   13,270.9907 (>1000.0)  3,310.6976 (>1000.0)  12,570.7500 (>1000.0)  5,449.3330 (>1000.0)      36;0       75.3523 (0.00)         94           1
+test_matrix_operations_benchmark[500]                  12,345.9170 (>1000.0)  25,528.2500 (436.38)   16,274.8320 (>1000.0)  2,941.8920 (>1000.0)  15,566.0415 (>1000.0)  4,453.2080 (>1000.0)      18;1       61.4446 (0.00)         66           1
+test_matrix_operations_benchmark[1000]                 70,691.9170 (>1000.0)  95,943.8750 (>1000.0)  82,182.4304 (>1000.0)  6,805.3020 (>1000.0)  80,795.6665 (>1000.0)  8,013.8330 (>1000.0)       3;0       12.1681 (0.00)         12           1
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Legend:
+  Outliers: 1 Standard Deviation from Mean; 1.5 IQR (InterQuartile Range) from 1st Quartile and 3rd Quartile.
+  OPS: Operations Per Second, computed as 1 / Mean
+=========================== short test summary info ============================
+FAILED tests/ablation/test_components.py::TestAblation::test_quantum_memory_contribution
+FAILED tests/ablation/test_components.py::TestAblation::test_error_mitigation_contribution
+FAILED tests/ablation/test_components.py::TestAblation::test_hybrid_training_contribution
+FAILED tests/ablation/test_components.py::TestAblation::test_full_system_synergy
+FAILED tests/benchmarks/test_energy_benchmarks.py::TestEnergy::test_training_energy_reduction
+FAILED tests/benchmarks/test_energy_benchmarks.py::TestEnergy::test_energy_scaling_with_problem_size
+FAILED tests/benchmarks/test_memory_benchmarks.py::TestMemoryScaling::test_grover_search_scaling
+FAILED tests/benchmarks/test_memory_benchmarks.py::TestMemoryScaling::test_quantum_advantage_threshold
+FAILED tests/benchmarks/test_training_benchmarks.py::TestConvergence::test_accuracy_improvements
+FAILED tests/benchmarks/test_training_benchmarks.py::TestConvergence::test_convergence_speed
+FAILED tests/benchmarks/test_training_benchmarks.py::TestConvergence::test_task_specific_convergence
+FAILED tests/benchmarks/test_training_benchmarks.py::TestTrainingDynamics::test_early_stopping_criterion
+FAILED tests/continual/test_forgetting.py::TestContinualLearning::test_retention_rates
+FAILED tests/error_mitigation/test_mitigation.py::TestErrorMitigation::test_fidelity_improvements
+FAILED tests/error_mitigation/test_mitigation.py::TestErrorMitigation::test_individual_technique_fidelity
+FAILED tests/integration/test_end_to_end.py::TestEndToEnd::test_complete_workflow
+====== 16 failed, 123 passed, 8 skipped, 15 warnings in 311.14s (0:05:11) ======

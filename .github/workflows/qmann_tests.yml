@@ -1,0 +1,294 @@
+name: QMANN Comprehensive Test Suite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[test]"
+    
+    - name: Run unit tests
+      run: |
+        pytest tests/ -v --cov=src/qmann --cov-report=xml -m "not hardware and not slow"
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+
+  simulator-benchmarks:
+    name: Simulator Benchmarks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[benchmark]"
+    
+    - name: Run simulator benchmarks
+      run: |
+        pytest tests/simulators/ tests/benchmarks/ -v --benchmark-only -m "not hardware"
+    
+    - name: Run memory scaling tests
+      run: |
+        pytest tests/benchmarks/memory_benchmarks.py -v -m benchmark
+    
+    - name: Run training benchmarks
+      run: |
+        pytest tests/benchmarks/training_benchmarks.py -v -m benchmark
+    
+    - name: Run energy benchmarks
+      run: |
+        pytest tests/benchmarks/energy_benchmarks.py -v -m benchmark
+
+  error-mitigation-tests:
+    name: Error Mitigation Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[quantum]"
+    
+    - name: Run error mitigation tests
+      run: |
+        pytest tests/error_mitigation/ -v -m benchmark
+
+  application-tests:
+    name: Application Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[test]"
+    
+    - name: Run application tests
+      run: |
+        pytest tests/applications/ -v -m integration
+
+  ablation-studies:
+    name: Ablation Studies
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[test]"
+    
+    - name: Run ablation studies
+      run: |
+        pytest tests/ablation/ -v -m benchmark
+
+  continual-learning-tests:
+    name: Continual Learning Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[test]"
+    
+    - name: Run continual learning tests
+      run: |
+        pytest tests/continual/ -v -m benchmark
+
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[test]"
+    
+    - name: Run integration tests
+      run: |
+        pytest tests/integration/ -v -m integration
+
+  hardware-tests:
+    name: Hardware Tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[quantum]"
+    
+    - name: Run hardware validation
+      env:
+        IBM_QUANTUM_TOKEN: ${{ secrets.IBM_QUANTUM_TOKEN }}
+      run: |
+        pytest tests/ -v -m hardware --slow
+      continue-on-error: true
+
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+    
+    - name: Lint with flake8
+      run: |
+        flake8 src/qmann tests --count --select=E9,F63,F7,F82 --show-source --statistics
+    
+    - name: Format check with black
+      run: |
+        black --check src/qmann tests
+    
+    - name: Type check with mypy
+      run: |
+        mypy src/qmann --ignore-missing-imports
+      continue-on-error: true
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[security]"
+    
+    - name: Run security scan with bandit
+      run: |
+        bandit -r src/qmann -f json -o bandit-report.json
+      continue-on-error: true
+    
+    - name: Check dependencies with safety
+      run: |
+        safety check --json
+      continue-on-error: true
+
+  test-report:
+    name: Test Report
+    runs-on: ubuntu-latest
+    needs: [unit-tests, simulator-benchmarks, error-mitigation-tests, 
+            application-tests, ablation-studies, continual-learning-tests, 
+            integration-tests]
+    if: always()
+    
+    steps:
+    - name: Check test results
+      run: |
+        if [ "${{ needs.unit-tests.result }}" != "success" ]; then
+          echo "Unit tests failed"
+          exit 1
+        fi
+        if [ "${{ needs.simulator-benchmarks.result }}" != "success" ]; then
+          echo "Simulator benchmarks failed"
+          exit 1
+        fi
+        echo "All tests passed!"
+

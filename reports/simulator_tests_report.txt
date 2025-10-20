@@ -1,0 +1,60 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.2, pytest-8.4.1, pluggy-1.5.0 -- /opt/anaconda3/bin/python
+cachedir: .pytest_cache
+benchmark: 5.1.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/bayrameker/Downloads/qmann-v2.0
+configfile: pyproject.toml
+plugins: docker-3.1.2, langsmith-0.3.30, anyio-4.9.0, xdist-3.8.0, benchmark-5.1.0, asyncio-1.0.0, cov-7.0.0
+asyncio: mode=Mode.STRICT, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 5 items
+
+tests/simulators/test_quantum_backend.py::test_ideal_simulator_creation PASSED [ 20%]
+tests/simulators/test_quantum_backend.py::test_noisy_simulator_creation PASSED [ 40%]
+tests/simulators/test_quantum_backend.py::test_noise_profile_info PASSED [ 60%]
+tests/simulators/test_quantum_backend.py::test_simulator_reset PASSED    [ 80%]
+tests/simulators/test_quantum_backend.py::test_measurement PASSED        [100%]/opt/anaconda3/lib/python3.12/site-packages/coverage/control.py:946: CoverageWarning: No data was collected. (no-data-collected); see https://coverage.readthedocs.io/en/7.10.7/messages.html#warning-no-data-collected
+  self._warn("No data was collected.", slug="no-data-collected")
+
+
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name                                            Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------------------
+src/qmann/__init__.py                              72     72     0%   11-162
+src/qmann/applications/__init__.py                  7      7     0%   21-54
+src/qmann/applications/autonomous.py              298    298     0%   9-788
+src/qmann/applications/drug_discovery.py          128    128     0%   27-451
+src/qmann/applications/finance.py                 112    112     0%   27-372
+src/qmann/applications/healthcare.py              154    154     0%   8-492
+src/qmann/applications/industrial.py              196    196     0%   9-548
+src/qmann/applications/materials_science.py       165    165     0%   28-470
+src/qmann/classical/__init__.py                     2      2     0%   8-14
+src/qmann/classical/lstm.py                       143    143     0%   8-412
+src/qmann/core/__init__.py                          5      5     0%   8-13
+src/qmann/core/base.py                            134    134     0%   7-279
+src/qmann/core/config.py                          152    152     0%   8-308
+src/qmann/core/exceptions.py                       55     55     0%   8-137
+src/qmann/core/memory.py                          119    119     0%   7-299
+src/qmann/hybrid/__init__.py                        4      4     0%   8-17
+src/qmann/hybrid/quantum_lstm.py                  197    197     0%   15-474
+src/qmann/hybrid/trainer.py                       213    213     0%   8-479
+src/qmann/hybrid/training_protocols.py            256    256     0%   8-678
+src/qmann/quantum/__init__.py                       7      7     0%   8-42
+src/qmann/quantum/advanced_techniques_2025.py     362    362     0%   36-825
+src/qmann/quantum/circuits.py                     194    194     0%   8-444
+src/qmann/quantum/error_mitigation_2025.py        244    244     0%   19-563
+src/qmann/quantum/memory.py                       241    241     0%   14-554
+src/qmann/quantum/qmatrix.py                      199    199     0%   8-517
+src/qmann/quantum/quantum_transformer_2025.py     146    146     0%   20-377
+src/qmann/utils/__init__.py                         6      6     0%   8-20
+src/qmann/utils/backend.py                        145    145     0%   8-389
+src/qmann/utils/benchmarks.py                     296    296     0%   8-732
+src/qmann/utils/error_mitigation.py               384    384     0%   16-937
+src/qmann/utils/multi_provider_backend.py         297    297     0%   17-726
+src/qmann/utils/security.py                        80     80     0%   6-269
+src/qmann/utils/visualization.py                  280    280     0%   9-720
+-----------------------------------------------------------------------------
+TOTAL                                            5293   5293     0%
+Coverage HTML written to dir htmlcov
+============================== 5 passed in 0.70s ===============================
